@@ -45,3 +45,6 @@ const App = () => {
 };
 
 export default App;
+/*Content COMP SHOULD BE CALLED IN App JUST ONCE
+ * FIX IT...
+ */
