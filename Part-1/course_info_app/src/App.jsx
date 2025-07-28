@@ -7,20 +7,30 @@ const Header = ({ courseName }) => {
 };
 
 /**  Content renders the parts and their number of exercises */
-const Content = ({ part, exercise }) => {
+const Content = (part) => {
+  console.log(part);
+
   return (
-    <p>
-      {part} {exercise}
-    </p>
+    <>
+      <p>
+        {part.part1} {part.exe1}
+      </p>
+      <p>
+        {part.part2} {part.exe2}
+      </p>
+      <p>
+        {part.part3} {part.exe3}
+      </p>
+    </>
   );
 };
 
 /** Total renders the total number of exercises */
 const Total = (total) => {
-  console.log(total);
-  console.log(total.ex3);
+  // console.log(total);
+  // console.log(total.ex3);
+  // console.log(total.ex1 + total.ex2 + total.ex3);
 
-  console.log(total.ex1 + total.ex2 + total.ex3);
   return <p>Number of exercises {total.ex1 + total.ex2 + total.ex3} </p>;
 };
 
@@ -36,9 +46,14 @@ const App = () => {
   return (
     <div>
       <Header courseName={course} />
-      <Content part={part1} exercise={exercises1}></Content>
-      <Content part={part2} exercise={exercises2}></Content>
-      <Content part={part3} exercise={exercises3}></Content>
+      <Content
+        part1={part1}
+        exe1={exercises1}
+        part2={part2}
+        exe2={exercises2}
+        part3={part3}
+        exe3={exercises3}
+      ></Content>
       <Total ex1={exercises1} ex2={exercises2} ex3={exercises3}></Total>
     </div>
   );
