@@ -6,21 +6,23 @@ const Header = ({ courseName }) => {
   return <h1>{courseName}</h1>;
 };
 
+/** Refactor Content Comp */
+const Part = (prop) => {
+  <>
+    <p>
+      {prop.part} {prop.exe}
+    </p>
+  </>;
+};
 /**  Content renders the parts and their number of exercises */
-const Content = (part) => {
-  console.log(part);
-
+const Content = (cont) => {
+  console.log('Content Comp ⬇️');
+  console.log(cont);
   return (
     <>
-      <p>
-        {part.part1} {part.exe1}
-      </p>
-      <p>
-        {part.part2} {part.exe2}
-      </p>
-      <p>
-        {part.part3} {part.exe3}
-      </p>
+      <Part part={cont.p1} exe={cont.ex1} />
+      <Part part={cont.p2} exe={cont.ex2} />
+      <Part part={cont.p3} exe={cont.ex3} />
     </>
   );
 };
@@ -47,12 +49,12 @@ const App = () => {
     <div>
       <Header courseName={course} />
       <Content
-        part1={part1}
-        exe1={exercises1}
-        part2={part2}
-        exe2={exercises2}
-        part3={part3}
-        exe3={exercises3}
+        p1={part1}
+        ex1={exercises1}
+        p2={part2}
+        ex2={exercises2}
+        p3={part3}
+        ex3={exercises3}
       ></Content>
       <Total ex1={exercises1} ex2={exercises2} ex3={exercises3}></Total>
     </div>
