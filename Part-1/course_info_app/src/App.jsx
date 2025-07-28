@@ -8,11 +8,13 @@ const Header = ({ courseName }) => {
 
 /** Refactor Content Comp */
 const Part = (prop) => {
-  <>
-    <p>
-      {prop.part} {prop.exe}
-    </p>
-  </>;
+  return (
+    <>
+      <p>
+        {prop.part} {prop.exe}
+      </p>
+    </>
+  );
 };
 /**  Content renders the parts and their number of exercises */
 const Content = (cont) => {
