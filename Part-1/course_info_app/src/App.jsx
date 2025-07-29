@@ -1,9 +1,9 @@
 // All data still resides in the App component, which passes the necessary data to each component using props
 
 /** Header takes care of rendering the name of the course */
-const Header = ({ courseName }) => {
-  console.log(courseName);
-  return <h1>{courseName}</h1>;
+const Header = ({ course }) => {
+  console.log('HEADER ' + course);
+  return <h1>{course}</h1>;
 };
 
 /** Refactor Content Comp */
@@ -17,23 +17,30 @@ const Part = (prop) => {
   );
 };
 /**  Content renders the parts and their number of exercises */
-const Content = (cont) => {
+const Content = ({ parts }) => {
   console.log('Content Comp ⬇️');
-  console.log(cont);
+  console.log(parts);
   return (
     <>
-      <Part part={cont.p1} exe={cont.ex1} />
-      <Part part={cont.p2} exe={cont.ex2} />
-      <Part part={cont.p3} exe={cont.ex3} />
+      <Part part={parts[0].name} exe={parts[0].exercises} />
+      <Part part={parts[1].name} exe={parts[1].exercises} />
+      <Part part={parts[2].name} exe={parts[2].exercises} />
     </>
   );
 };
 
 /** Total renders the total number of exercises */
-const Total = (total) => {
-  // console.log(total);
+const Total = ({ parts }) => {
+  console.log('TOTAL: ⬇️');
+  console.log(parts);
+  console.log(parts[0]);
 
-  return <p>Number of exercises {total.ex1 + total.ex2 + total.ex3} </p>;
+  return (
+    <p>
+      Number of exercises{' '}
+      {parts[0].exercises + parts[1].exercises + parts[2].exercises}
+    </p>
+  );
 };
 
 const App = () => {
@@ -55,20 +62,9 @@ const App = () => {
 
   return (
     <div>
-      <Header courseName={course} />
-      <Content
-        p1={parts[0].name}
-        ex1={parts[0].exercises}
-        p2={parts[1].name}
-        ex2={parts[1].exercises}
-        p3={parts[2].name}
-        ex3={parts[2].exercises}
-      ></Content>
-      <Total
-        ex1={parts[0].exercises}
-        ex2={parts[1].exercises}
-        ex3={parts[2].exercises}
-      ></Total>
+      <Header course={course} />
+      <Content parts={parts} />
+      <Total parts={parts} />
     </div>
   );
 };
