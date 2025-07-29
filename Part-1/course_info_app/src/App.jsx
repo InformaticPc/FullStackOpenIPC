@@ -32,38 +32,43 @@ const Content = (cont) => {
 /** Total renders the total number of exercises */
 const Total = (total) => {
   // console.log(total);
-  // console.log(total.ex3);
-  // console.log(total.ex1 + total.ex2 + total.ex3);
 
   return <p>Number of exercises {total.ex1 + total.ex2 + total.ex3} </p>;
 };
 
 const App = () => {
   const course = 'Half Stack application development';
-  const part1 = 'Fundamentals of React';
-  const exercises1 = 10;
-  const part2 = 'Using props to pass data';
-  const exercises2 = 7;
-  const part3 = 'State of a component';
-  const exercises3 = 14;
+  const part1 = {
+    name: 'Fundamentals of React',
+    exercises: 10,
+  };
+  const part2 = {
+    name: 'Using props to pass data',
+    exercises: 7,
+  };
+  const part3 = {
+    name: 'State of a component',
+    exercises: 14,
+  };
 
   return (
     <div>
       <Header courseName={course} />
       <Content
-        p1={part1}
-        ex1={exercises1}
-        p2={part2}
-        ex2={exercises2}
-        p3={part3}
-        ex3={exercises3}
+        p1={part1.name}
+        ex1={part1.exercises}
+        p2={part2.name}
+        ex2={part2.exercises}
+        p3={part3.name}
+        ex3={part3.exercises}
       ></Content>
-      <Total ex1={exercises1} ex2={exercises2} ex3={exercises3}></Total>
+      <Total
+        ex1={part1.exercises}
+        ex2={part2.exercises}
+        ex3={part3.exercises}
+      ></Total>
     </div>
   );
 };
 
 export default App;
-/*Content COMP SHOULD BE CALLED IN App JUST ONCE
- * FIX IT...
- */
