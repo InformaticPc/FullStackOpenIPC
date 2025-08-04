@@ -6,15 +6,18 @@ const App = () => {
   console.log('rendering with counter value', counter);
 
   const increaseByOne = () => {
+    console.log('============');
     console.log('increasing value, before', counter);
     setCounter(counter + 1);
   };
 
   const deCreaseByOne = () => {
+    console.log('============');
     console.log('decreasing value, before', counter);
     setCounter(counter - 1);
   };
   const setToZero = () => {
+    console.log('============');
     console.log('resetting to zero, value before', counter);
     setCounter(0);
   };
@@ -29,13 +32,9 @@ const App = () => {
   );
 };
 
-const Display = (props) => {
-  return <div>{props.counter}</div>;
-};
+const Display = ({ counter }) => <div>{counter}</div>;
 
-const Button = (prop) => {
-  return <button onClick={prop.event}>{prop.name}</button>;
-};
+const Button = ({ event, name }) => <button onClick={event}>{name}</button>;
 
 export default App;
 // Changes in state cause re-rendering...
