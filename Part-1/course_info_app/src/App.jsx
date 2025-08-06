@@ -1,53 +1,47 @@
 import { useState } from 'react';
 
-const History = (props) => {
-  if (props.allClicks.length === 0) {
-    return <p>The app is used by pressing the buttons </p>;
-  }
-  return <p> Button press history: {props.allClicks.join(' - ')} </p>;
-};
-
 const Button = ({ onClick, text }) => (
   <button onClick={onClick}> {text} </button>
 );
 
 const App = () => {
-  const [left, setLeft] = useState(0);
-  const [right, setRight] = useState(0);
-  const [allClicks, setAll] = useState([]);
-  const [total, setTotal] = useState(0);
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0);
+  const [neutral, setNeutral] = useState(0);
+  const [bad, setBad] = useState(0);
 
-  const handleLeftClick = () => {
-    setAll(allClicks.concat('L'));
+  // HANDLERS
+  const handleGood = () => {
+    console.log('clicked good', good);
 
-    const updateLeft = left + 1;
-
-    setLeft(updateLeft);
-    setTotal(updateLeft + right);
+    setGood(good + 1);
   };
 
-  const handleRightClick = () => {
-    setAll(allClicks.concat('R'));
+  const handleNeutral = () => {
+    console.log('clicked Neutral', good);
+    setNeutral(neutral + 1);
+  };
 
-    const updateRight = right + 1;
-
-    setRight(updateRight);
-    setTotal(left + updateRight);
+  const handleBad = () => {
+    console.log('clicked bad', good);
+    setBad(bad + 1);
   };
 
   return (
     <div>
-      {left}
-      <Button onClick={handleLeftClick} text="Left" />
-      <Button onClick={handleRightClick} text="Right" />
-      {right}
-      <hr />
-      <History allClicks={allClicks} />
-      <p>total: {total}</p>
+      <h1>Give feedback</h1>
+
+      <Button onClick={handleGood} text="Good" />
+      <Button onClick={handleNeutral} text="Neutral" />
+      <Button onClick={handleBad} text="Bad" />
+
+      <h1>Statistics</h1>
+
+      <p>Good {good}</p>
+      <p>Neutral {neutral}</p>
+      <p>Bad {bad}</p>
     </div>
   );
 };
 
 export default App;
-// Part1d Complex state...
-// https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps
