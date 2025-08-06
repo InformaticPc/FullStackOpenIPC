@@ -18,14 +18,14 @@ const App = () => {
   // ---------------------
   const handlerLeftclick = () => {
     const newClicks = {
+      ...clicks, // spread syntax needs to be the first line, for ... some reason?!
       left: clicks.left + 1,
-      right: clicks.right,
     };
     setClicks(newClicks);
   };
   const handlerRightclick = () => {
     const newClicks = {
-      left: clicks.left,
+      ...clicks,
       right: clicks.right + 1,
     };
     setClicks(newClicks);
