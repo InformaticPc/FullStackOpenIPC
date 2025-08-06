@@ -41,11 +41,12 @@ const App = () => {
 */
 /**
  * NOTE:
- * As mentioned previously, it's also possible in JavaScript to add items to an array with the push method.
+ * As mentioned previously, it's also possible in JavaScript to add items to an array with the *push* method.
  * If we add the item by pushing it to the allClicks array and then updating the state, the application would still appear to work:
  * However, don't do this. As mentioned previously, the state of React components,
- * like allClicks, must not be mutated directly.
+ * like allClicks, ⚠️must not be mutated directly⚠️.
  * Even if mutating state appears to work in some cases, it can lead to problems that are very hard to debug.
+ * ✅*concat* method, which does not mutate✅ the existing array but rather returns a new copy of the array with the item added to it.
  */
 
 const App = () => {
