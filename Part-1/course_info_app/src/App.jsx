@@ -2,14 +2,14 @@ import { useState } from 'react';
 
 const History = (props) => {
   if (props.allClicks.length === 0) {
-    return <div> the app is used by pressing the buttons </div>;
+    return <p>The app is used by pressing the buttons </p>;
   }
-  return <div> button press history: {props.allClicks.join(' - ')} </div>;
+  return <p> Button press history: {props.allClicks.join(' - ')} </p>;
 };
 
-const Button = ({ onClick, text }) => {
-  return <button onClick={onClick}> {text} </button>;
-};
+const Button = ({ onClick, text }) => (
+  <button onClick={onClick}> {text} </button>
+);
 
 const App = () => {
   const [left, setLeft] = useState(0);
@@ -19,17 +19,18 @@ const App = () => {
 
   const handleLeftClick = () => {
     setAll(allClicks.concat('L'));
-    console.log(`left event before: ${left}`);
+
     const updateLeft = left + 1;
 
     setLeft(updateLeft);
-    console.log(`left event AFTER: ${left}`);
     setTotal(updateLeft + right);
   };
 
   const handleRightClick = () => {
     setAll(allClicks.concat('R'));
+
     const updateRight = right + 1;
+
     setRight(updateRight);
     setTotal(left + updateRight);
   };
