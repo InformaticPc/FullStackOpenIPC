@@ -17,18 +17,17 @@ const App = () => {
   // Like so:
   // ---------------------
   const handlerLeftclick = () => {
-    const newClicks = {
-      ...clicks, // spread syntax needs to be the first line, for ... some reason?!
+    setClicks({
+      ...clicks,
+      // spread syntax needs to be the first line,
+      // because ...spread in obj brings ALL the properties of that obj ALWAYS
+      // so you first bring the whole old obj
+      // then overide the property that you want
       left: clicks.left + 1,
-    };
-    setClicks(newClicks);
+    });
   };
   const handlerRightclick = () => {
-    const newClicks = {
-      ...clicks,
-      right: clicks.right + 1,
-    };
-    setClicks(newClicks);
+    setClicks({ ...clicks, right: clicks.right + 1 });
   };
   // ---------------------
 
