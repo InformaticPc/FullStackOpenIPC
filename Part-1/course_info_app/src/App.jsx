@@ -40,8 +40,11 @@ const App = () => {
       <p>Good {good}</p>
       <p>Neutral {neutral}</p>
       <p>Bad {bad}</p>
+      <p>All: {good + neutral + bad}</p>
     </div>
   );
 };
 
 export default App;
+// CONTINUE...
+// 1.7: UNICAFE STEP 2 -> https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps
