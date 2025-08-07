@@ -7,8 +7,38 @@ const Button = ({ onClick, text }) => (
   <button onClick={onClick}> {text} </button>
 );
 
+// --------------------------------------------------------
 /**
- * Statistics component that declares two function and return 2 '\<p>'
+ * Average calculation (the feedback values are: good 1, neutral 0, bad - 1)
+ * @param {*} good Number of positive reviews
+ * @param {*} bad Number of negative reviews
+ * @param {*} total Sum of all type of reviews
+ * @returns Number with the porcentage of reviews
+ */
+const averageCalc = (good, bad, total) => {
+  const average = (good - bad) / total;
+
+  if (Number.isNaN(average)) {
+    return 0;
+  } else return average;
+};
+
+/**
+ * Positive calculation, porcentage of positive reviews copared with all reviews
+ * @param {*} good Number of positive reviews
+ * @param {*} total Sum of all type of reviews
+ * @returns Number
+ */
+const positiveCalc = (good, total) => {
+  const positive = (good * 100) / total;
+
+  if (Number.isNaN(positive)) {
+    return 0;
+  } else return positive;
+};
+// --------------------------------------------------------
+/**
+ * Statistics component that return 2 '\<p>'
  * with diff calculations.
  * @param {*} goodReviews
  * @param {*} badReviews
@@ -16,42 +46,6 @@ const Button = ({ onClick, text }) => (
  * @returns Two Calculations: Average & Positive porcentage
  */
 const Statistics = ({ good, bad, total }) => {
-  /**
-   * Average calculation (the feedback values are: good 1, neutral 0, bad - 1)
-   * @param {*} good Number of positive reviews
-   * @param {*} bad Number of negative reviews
-   * @param {*} total Sum of all type of reviews
-   * @returns Number with the porcentage of reviews
-   */
-  const averageCalc = (good, bad, total) => {
-    const average = (good - bad) / total;
-    console.log('good in average', good);
-    console.log('bad in average', bad);
-    console.log('total in average', total);
-    console.log('calc: ', average);
-
-    if (Number.isNaN(average)) {
-      return 0;
-    } else return average;
-  };
-
-  /**
-   * Positive calculation, porcentage of positive reviews copared with all reviews
-   * @param {*} good Number of positive reviews
-   * @param {*} total Sum of all type of reviews
-   * @returns Number
-   */
-  const positiveCalc = (good, total) => {
-    const positive = (good * 100) / total;
-    console.log('good in average', good);
-    console.log('bad in average', bad);
-    console.log('total in average', total);
-    console.log('calc: ', positive);
-
-    if (Number.isNaN(positive)) {
-      return 0;
-    } else return positive;
-  };
   return (
     <>
       <p>Average: {averageCalc(good, bad, total)}</p>
@@ -60,6 +54,7 @@ const Statistics = ({ good, bad, total }) => {
   );
 };
 
+// --------------------------------------------------------
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0);
@@ -67,21 +62,10 @@ const App = () => {
   const [bad, setBad] = useState(0);
 
   // HANDLERS
-  const handleGood = () => {
-    // console.log('clicked good', good);
+  const handleGood = () => setGood(good + 1);
+  const handleNeutral = () => setNeutral(neutral + 1);
+  const handleBad = () => setBad(bad + 1);
 
-    setGood(good + 1);
-  };
-
-  const handleNeutral = () => {
-    // console.log('clicked Neutral', Neutral);
-    setNeutral(neutral + 1);
-  };
-
-  const handleBad = () => {
-    // console.log('clicked bad', bad);
-    setBad(bad + 1);
-  };
   // Total score
   const total = good + neutral + bad;
 
