@@ -46,12 +46,14 @@ const positiveCalc = (good, total) => {
  * @returns Two Calculations: Average & Positive porcentage
  */
 const Statistics = ({ good, bad, total }) => {
-  return (
-    <>
-      <p>Average: {averageCalc(good, bad, total)}</p>
-      <p>Positive: {positiveCalc(good, total)} %</p>
-    </>
-  );
+  if (good + bad + total == 0) return <h3>No feedback given</h3>;
+  else
+    return (
+      <>
+        <p>Average: {averageCalc(good, bad, total)}</p>
+        <p>Positive: {positiveCalc(good, total)} %</p>
+      </>
+    );
 };
 
 // --------------------------------------------------------
