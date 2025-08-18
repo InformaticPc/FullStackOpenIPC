@@ -3,8 +3,8 @@ import { useState } from 'react';
 // ✅the total number of collected feedback,
 // ✅the average score(the feedback values are: good 1, neutral 0, bad - 1)
 // ✅and the percentage of positive feedback
-const Button = ({ onClick, text }) => (
-  <button onClick={onClick}> {text} </button>
+const StatisticLine = ({ onClick, value }) => (
+  <button onClick={onClick}> {value} </button>
 );
 
 // --------------------------------------------------------
@@ -45,11 +45,16 @@ const positiveCalc = (good, total) => {
  * @param {*} totalReviews
  * @returns Two Calculations: Average & Positive porcentage
  */
-const Statistics = ({ good, bad, total }) => {
+const Statistics = ({ good, bad, total, neutral }) => {
   if (good + bad + total == 0) return <h3>No feedback given</h3>;
   else
     return (
       <>
+        <p>Good {good}</p>
+        <p>Neutral {neutral}</p>
+        <p>Bad {bad}</p>
+        <p>All: {total}</p>
+
         <p>Average: {averageCalc(good, bad, total)}</p>
         <p>Positive: {positiveCalc(good, total)} %</p>
       </>
@@ -75,22 +80,17 @@ const App = () => {
     <div>
       <h1>Give feedback</h1>
 
-      <Button onClick={handleGood} text="Good" />
-      <Button onClick={handleNeutral} text="Neutral" />
-      <Button onClick={handleBad} text="Bad" />
+      <StatisticLine onClick={handleGood} value="Good" />
+      <StatisticLine onClick={handleNeutral} value="Neutral" />
+      <StatisticLine onClick={handleBad} value="Bad" />
 
       <h1>Statistics</h1>
 
-      <p>Good {good}</p>
-      <p>Neutral {neutral}</p>
-      <p>Bad {bad}</p>
-      <p>All: {total}</p>
-
-      <Statistics good={good} bad={bad} total={total} />
+      <Statistics good={good} bad={bad} neutral={neutral} total={total} />
     </div>
   );
 };
 
 export default App;
-// CONTINUE...
-// https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps
+// CONTINUE...you make a mistake at 1.9 good-neutral-bad-all shouldn't appear saying '0'.
+// 1.9: https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps
