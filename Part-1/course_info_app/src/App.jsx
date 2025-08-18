@@ -9,9 +9,10 @@ const Button = ({ onClick, text }) => (
 
 const StatisticLine = ({ text, value }) => {
   return (
-    <p>
-      {text} {value}
-    </p>
+    <>
+      <td>{text}</td>
+      <td>{value}</td>
+    </>
   );
 };
 
@@ -42,7 +43,7 @@ const positiveCalc = (good, total) => {
 
   if (Number.isNaN(positive)) {
     return 0;
-  } else return positive;
+  } else return `${positive} %`;
 };
 // --------------------------------------------------------
 /**
@@ -65,13 +66,34 @@ const Statistics = ({ good, bad, total, neutral }) => {
     return (
       <>
         <h1>Statistics</h1>
-
-        <StatisticLine text="Good" value={good} />
-        <StatisticLine text="Neutral" value={neutral} />
-        <StatisticLine text="Bad" value={bad} />
-        <StatisticLine text="Total" value={total} />
-        <StatisticLine text="Average" value={averageCalc(good, bad, total)} />
-        <StatisticLine text="Positive" value={positiveCalc(good, total)} />
+        <table>
+          <tbody>
+            <tr>
+              <StatisticLine text="Good" value={good} />
+            </tr>
+            <tr>
+              <StatisticLine text="Neutral" value={neutral} />
+            </tr>
+            <tr>
+              <StatisticLine text="Bad" value={bad} />
+            </tr>
+            <tr>
+              <StatisticLine text="Total" value={total} />
+            </tr>
+            <tr>
+              <StatisticLine
+                text="Average"
+                value={averageCalc(good, bad, total)}
+              />
+            </tr>
+            <tr>
+              <StatisticLine
+                text="Positive"
+                value={positiveCalc(good, total)}
+              />
+            </tr>
+          </tbody>
+        </table>
       </>
     );
 };
