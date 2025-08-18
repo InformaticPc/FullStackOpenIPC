@@ -1,16 +1,21 @@
 import { useState } from 'react';
 
-// ✅the total number of collected feedback,
-// ✅the average score(the feedback values are: good 1, neutral 0, bad - 1)
-// ✅and the percentage of positive feedback
 const Button = ({ onClick, text }) => (
   <button onClick={onClick}> {text} </button>
 );
 
+/**
+ * Renders each statistic line with his value and
+ * each cell \<td> of the table
+ * @param {*} param0
+ * @returns
+ */
 const StatisticLine = ({ text, value }) => {
   return (
     <>
-      <td>{text}</td>
+      <td>
+        <strong>{text}</strong>
+      </td>
       <td>{value}</td>
     </>
   );
@@ -47,8 +52,8 @@ const positiveCalc = (good, total) => {
 };
 // --------------------------------------------------------
 /**
- * Statistics component that return 2 '\<p>'
- * with diff calculations.
+ * Statistics component that return the table body '\<table> \<tbody>...'
+ * of each 'StatisticLine' comp
  * @param {*} goodReviews
  * @param {*} badReviews
  * @param {*} totalReviews
@@ -67,6 +72,12 @@ const Statistics = ({ good, bad, total, neutral }) => {
       <>
         <h1>Statistics</h1>
         <table>
+          {/* <thead>
+            <tr>
+              <th>Statistics</th>
+            </tr>
+          </thead> */}
+
           <tbody>
             <tr>
               <StatisticLine text="Good" value={good} />
