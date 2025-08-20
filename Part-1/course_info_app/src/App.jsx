@@ -1,142 +1,34 @@
 import { useState } from 'react';
 
-const Button = ({ onClick, text }) => (
-  <button onClick={onClick}> {text} </button>
-);
+const App = () => {
+  const anecdotes = [
+    'If it hurts, do it more often.',
+    'Adding manpower to a late software project makes it later!',
+    'The first 90 percent of the code accounts for the first 90 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.',
+    'Any fool can write code that a computer can understand. Good programmers write code that humans can understand.',
+    'Premature optimization is the root of all evil.',
+    'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
+    'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.',
+    'The only way to go fast, is to go well.',
+  ];
 
-/**
- * Renders each statistic line with his value and
- * each cell \<td> of the table
- * @param {*} param0
- * @returns
- */
-const StatisticLine = ({ text, value }) => {
+  const [selected, setSelected] = useState(0);
+
+  const handleButton = () => {
+    const random = Math.floor(Math.random() * anecdotes.length);
+    console.log(anecdotes.length);
+    setSelected(random);
+    console.log('random number is:', random);
+  };
+
   return (
     <>
-      <td>
-        <strong>{text}</strong>
-      </td>
-      <td>{value}</td>
+      <div>{anecdotes[selected]}</div>
+      <button onClick={handleButton}>next anecdote</button>
     </>
   );
 };
 
-// --------------------------------------------------------
-/**
- * Average calculation (the feedback values are: good 1, neutral 0, bad - 1)
- * @param {*} good Number of positive reviews
- * @param {*} bad Number of negative reviews
- * @param {*} total Sum of all type of reviews
- * @returns Number with the porcentage of reviews
- */
-const averageCalc = (good, bad, total) => {
-  const average = (good - bad) / total;
-
-  if (Number.isNaN(average)) {
-    return 0;
-  } else return average;
-};
-
-/**
- * Positive calculation, porcentage of positive reviews copared with all reviews
- * @param {*} good Number of positive reviews
- * @param {*} total Sum of all type of reviews
- * @returns Number
- */
-const positiveCalc = (good, total) => {
-  const positive = (good * 100) / total;
-
-  if (Number.isNaN(positive)) {
-    return 0;
-  } else return `${positive} %`;
-};
-// --------------------------------------------------------
-/**
- * Statistics component that return the table body '\<table> \<tbody>...'
- * of each 'StatisticLine' comp
- * @param {*} goodReviews
- * @param {*} badReviews
- * @param {*} totalReviews
- * @returns Two Calculations: Average & Positive porcentage
- */
-const Statistics = ({ good, bad, total, neutral }) => {
-  if (good + bad + total == 0) {
-    return (
-      <>
-        <h1>Statistics</h1>
-        <h3>No feedback given</h3>
-      </>
-    );
-  } else
-    return (
-      <>
-        <h1>Statistics</h1>
-        <table>
-          {/* <thead>
-            <tr>
-              <th>Statistics</th>
-            </tr>
-          </thead> */}
-
-          <tbody>
-            <tr>
-              <StatisticLine text="Good" value={good} />
-            </tr>
-            <tr>
-              <StatisticLine text="Neutral" value={neutral} />
-            </tr>
-            <tr>
-              <StatisticLine text="Bad" value={bad} />
-            </tr>
-            <tr>
-              <StatisticLine text="Total" value={total} />
-            </tr>
-            <tr>
-              <StatisticLine
-                text="Average"
-                value={averageCalc(good, bad, total)}
-              />
-            </tr>
-            <tr>
-              <StatisticLine
-                text="Positive"
-                value={positiveCalc(good, total)}
-              />
-            </tr>
-          </tbody>
-        </table>
-      </>
-    );
-};
-
-// --------------------------------------------------------
-const App = () => {
-  // save clicks of each button to its own state
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
-
-  // HANDLERS
-  const handleGood = () => setGood(good + 1);
-  const handleNeutral = () => setNeutral(neutral + 1);
-  const handleBad = () => setBad(bad + 1);
-
-  // Total score
-  const total = good + neutral + bad;
-
-  return (
-    <div>
-      <h1>Give feedback</h1>
-
-      <Button onClick={handleGood} text="Good" />
-      <Button onClick={handleNeutral} text="Neutral" />
-      <Button onClick={handleBad} text="Bad" />
-
-      <Statistics good={good} bad={bad} neutral={neutral} total={total} />
-    </div>
-  );
-};
-
 export default App;
-// CONTINUE...you make a mistake at 1.9 good-neutral-bad-all shouldn't appear saying '0'.
-// 1.9: https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps
+// 1.12*: anecdotes step 1
+// https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps
