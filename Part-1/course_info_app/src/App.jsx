@@ -1,5 +1,18 @@
 import { useState } from 'react';
 
+const NextAnecdote = ({ onClick }) => {
+  return <button onClick={onClick}>next anecdote</button>;
+};
+
+const Vote = ({ onClick, votes }) => {
+  return (
+    <>
+      <p>has {votes} votes</p>
+      <button onClick={onClick}>vote</button>
+    </>
+  );
+};
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -13,22 +26,31 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
+  console.log(votes);
 
-  const handleButton = () => {
+  // handler event
+  const handleRandom_Button = () => {
     const random = Math.floor(Math.random() * anecdotes.length);
-    console.log(anecdotes.length);
     setSelected(random);
-    console.log('random number is:', random);
+  };
+
+  const handleVote_button = () => {
+    const copy = [...votes];
+    copy[selected] += 1;
+    setVotes(copy);
   };
 
   return (
     <>
       <div>{anecdotes[selected]}</div>
-      <button onClick={handleButton}>next anecdote</button>
+
+      <Vote onClick={handleVote_button} votes={votes[selected]} />
+      <NextAnecdote onClick={handleRandom_Button} />
     </>
   );
 };
 
 export default App;
-// 1.12*: anecdotes step 1
+// 1.13*: anecdotes step 2
 // https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps
