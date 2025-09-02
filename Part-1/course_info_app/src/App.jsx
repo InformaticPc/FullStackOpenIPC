@@ -1,12 +1,14 @@
 import { useState } from 'react';
-
+/* 1.14*: anecdotes step 3
+ * https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps*/
+// components ------------------------------
 const NextAnecdote = ({ onClick }) => {
-  console.log('<NextAnecdote /> running');
+  console.log('<NextAnecdote /> rendering');
   return <button onClick={onClick}>next anecdote</button>;
 };
 
 const Vote = ({ onClick, votes }) => {
-  console.log('<Vote /> running');
+  console.log('<Vote /> rendering');
 
   return (
     <>
@@ -17,12 +19,17 @@ const Vote = ({ onClick, votes }) => {
 };
 
 const BestAnecdote = ({ anecdote, voteStart }) => {
-  console.log('<BestAnecdote /> running');
-  if (voteStart == -1) {
-    return <p>Nothing voted yet</p>;
-  }
-  return <p>{anecdote}</p>;
+  console.log('<BestAnecdote /> rendering');
+  return voteStart == -1 ? (
+    <p>Nothing voted yet</p>
+  ) : (
+    <>
+      <p>{anecdote}</p>
+      <span>has {voteStart} votes</span>
+    </>
+  );
 };
+// ----------------------------------------------
 
 const App = () => {
   const anecdotes = [
@@ -36,45 +43,39 @@ const App = () => {
     'The only way to go fast, is to go well.',
   ];
 
-  // states
+  // states -------------------------------
   const [selected, setSelected] = useState(0);
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
   const [bestIndex, setBestIndex] = useState(-1);
   console.log('votes:', votes);
   console.log('best index is:', bestIndex);
 
-  // -----------------------
+  // ---------------------------------------
 
-  // handler events
+  // handler events ------------------------
   const handleRandom_Button = () => {
     const random = Math.floor(Math.random() * anecdotes.length);
     setSelected(random);
   };
 
   const handleVote_button = () => {
-    // Initialize the bestindex for the 1st time
-    console.log(`----bestIndex before----⬇️:`, bestIndex);
-    if (bestIndex == -1) setBestIndex(0);
-    console.log(`----bestIndex after---⬆️:`, bestIndex);
-    // make a copy of org arr to change the state
-    // with a new array modified
+    console.log('#### VOTE CLICKED###');
+    setBestIndex(0);
+
+    // make a copy of org arr
     const copy = [...votes];
+    // with a new array modified
     copy[selected] += 1;
     setVotes(copy);
-    highestVote();
-  };
 
-  // get the index of highest voted anecdote
-  const highestVote = () => {
-    console.log('highest handler running');
-
-    for (let i = 0; i < votes.length; i++) {
-      if (votes[bestIndex] <= votes[i]) {
-        setBestIndex(i);
-        console.log('### index inside for loop: ', i);
-      }
-    }
+    // get the index of highest voted anecdote
+    const maxVotes = Math.max(...copy);
+    // get the index of that maxVotes value, it will look for the first match\
+    // and return that element index
+    const bestIdx = copy.indexOf(maxVotes);
+    setBestIndex(bestIdx);
   };
+  // ---------------------------------------
 
   return (
     <>
@@ -86,11 +87,12 @@ const App = () => {
       <NextAnecdote onClick={handleRandom_Button} />
 
       <h1>Anecdote with most votes</h1>
-      <BestAnecdote anecdote={anecdotes[bestIndex]} voteStart={bestIndex} />
+      <BestAnecdote
+        anecdote={anecdotes[bestIndex]}
+        voteStart={votes[bestIndex]}
+      />
     </>
   );
 };
 
 export default App;
-// 1.13*: anecdotes step 2
-// https://fullstackopen.com/en/part1/a_more_complex_state_debugging_react_apps
