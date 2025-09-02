@@ -18,14 +18,14 @@ const Vote = ({ onClick, votes }) => {
   );
 };
 
-const BestAnecdote = ({ anecdote, voteStart }) => {
+const BestAnecdote = ({ anecdote, voteStart, votes }) => {
   console.log('<BestAnecdote /> rendering');
   return voteStart == -1 ? (
     <p>Nothing voted yet</p>
   ) : (
     <>
       <p>{anecdote}</p>
-      <span>has {voteStart} votes</span>
+      <span>has {votes} votes</span>
     </>
   );
 };
@@ -89,7 +89,8 @@ const App = () => {
       <h1>Anecdote with most votes</h1>
       <BestAnecdote
         anecdote={anecdotes[bestIndex]}
-        voteStart={votes[bestIndex]}
+        voteStart={bestIndex}
+        votes={votes[bestIndex]}
       />
     </>
   );
