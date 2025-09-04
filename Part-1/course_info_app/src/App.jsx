@@ -97,3 +97,5 @@ const App = () => {
 };
 
 export default App;
+
+// IF YOU HAVE SOME ANECDOTES GOT THE SAME VOTES, SHOW ALL OF THEM. TO BE UPDATED....
