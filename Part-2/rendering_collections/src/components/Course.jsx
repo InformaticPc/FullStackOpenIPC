@@ -21,6 +21,7 @@ const Content = ({ course }) => (
 const Total = ({ sum }) => {
   console.log(sum.parts);
 
+  // Array.reduce()
   const total = sum.parts.reduce(
     (accumulator, current) => accumulator + current.exercises,
     0
@@ -48,3 +49,5 @@ const Course = ({ course }) => {
 };
 
 export default Course;
+// 2.4: Course information step 9
+// https://fullstackopen.com/en/part2/rendering_a_collection_modules
