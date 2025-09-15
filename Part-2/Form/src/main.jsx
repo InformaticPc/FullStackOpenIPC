@@ -18,7 +18,7 @@ const notes = [
     important: true,
   },
 ];
-
+notes.fil;
 ReactDOM.createRoot(document.getElementById("root")).render(
   <App notes={notes} />
 );
