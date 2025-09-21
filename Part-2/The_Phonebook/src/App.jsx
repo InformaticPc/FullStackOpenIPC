@@ -16,7 +16,7 @@ const App = () => {
       <h2>Phonebook</h2>
       <form>
         <div>
-          name: <input onChange={handleInput} />
+          Name: <input onChange={handleInput} />
         </div>
         <div>
           <button onClick={handlerSubmit} type="submit">
@@ -28,7 +28,6 @@ const App = () => {
       {persons.map((person, index) => (
         <p key={index}> {person.name}</p>
       ))}
-      hi ...
       <div>debug: {newName}</div>
     </>
   );
