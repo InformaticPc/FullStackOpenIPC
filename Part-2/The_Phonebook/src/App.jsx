@@ -8,7 +8,13 @@ const App = () => {
   const handleInput = (e) => setNewName(e.target.value);
   const handlerSubmit = (e) => {
     e.preventDefault(); // <== REMEMBER
-    setPersons(persons.concat({ name: newName }));
+    let isAdded = false;
+    persons.forEach((person) => {
+      if (newName.toLowerCase() === person.name.toLowerCase()) isAdded = true;
+    });
+    isAdded
+      ? alert(`${newName} is already added to the phonebook`)
+      : setPersons(persons.concat({ name: newName }));
   };
 
   return (
@@ -28,11 +34,14 @@ const App = () => {
       {persons.map((person, index) => (
         <p key={index}> {person.name}</p>
       ))}
+      <>
+        <br />
+      </>
       <div>debug: {newName}</div>
     </>
   );
 };
 
 export default App;
-// 2.6: The Phonebook Step 1
+// 2.7: The Phonebook Step 2
 //https://fullstackopen.com/en/part2/forms#controlled-component
