@@ -1,4 +1,7 @@
 import { useState } from "react";
+import Persons from "./components/Persons";
+import PersonForm from "./components/PersonForm";
+import Filter from "./components/Filter";
 
 const App = () => {
   // --------States--------
@@ -49,42 +52,19 @@ const App = () => {
   return (
     <>
       <h1>Phonebook</h1>
-      <form>
-        <div>
-          Filter shown with: <input type="text" onKeyUp={handlerSearch} />
-        </div>
-        <h2>Add a new</h2>
-        <div>
-          Name: <input type="text" onChange={handleName} />
-        </div>
-        <div>
-          Number: <input type="text" onChange={handlerNumber} />
-        </div>
-        <div>
-          <button onClick={handlerSubmit} type="submit">
-            add
-          </button>
-        </div>
-      </form>
+      <Filter search={handlerSearch} />
+      <h2>Add a new</h2>
+      <PersonForm
+        name={handleName}
+        number={handlerNumber}
+        submit={handlerSubmit}
+      />
       <h2>Numbers</h2>
-      {filtered.map((person, index) => (
-        <p key={index}>
-          {" "}
-          {person.name} {person.number}
-        </p>
-      ))}
-      <>
-        <br />
-      </>
-      <>debug name: {newName}</>
-      <br />
-      <>debug number: {newNumber}</>
-      <br />
-      <>debug search: {search}</>
+      <Persons persons={filtered} />
     </>
   );
 };
 
 export default App;
-// 2.7: The Phonebook Step 2
+// 2.10: The Phonebook Step 5
 //https://fullstackopen.com/en/part2/forms#controlled-component
