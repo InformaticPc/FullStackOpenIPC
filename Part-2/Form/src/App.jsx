@@ -1,18 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import Note from "./components/Note";
 
-const App = (props) => {
+const App = () => {
   // ---------STATES---------
-  const [notes, setNotes] = useState(props.notes);
+  const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("new note...");
   const [showAll, setShowAll] = useState(true);
   // ---------LOGS---------
   console.log("note: ", notes);
   console.log("newNote: ", newNote);
 
+  // --------- FETCH FROM SERVER ---------
+  useEffect(() => {
+    console.log("effect");
+    axios.get("http://localhost:3001/notes").then((response) => {
+      console.log("promise fulfilled");
+      setNotes(response.data);
+    });
+  }, []);
+  console.log("render", notes.length, "notes");
+
   // ---------SHOW IMPORTANT NOTES---------
   // filter: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
   const notesToShow = showAll ? notes : notes.filter((note) => note.important); // <-- 'note.important === true'
+  // ---------
 
   const addNote = (event) => {
     event.preventDefault(); // <-- prevent default event like refresh the page
