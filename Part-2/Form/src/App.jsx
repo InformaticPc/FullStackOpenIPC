@@ -12,14 +12,17 @@ const App = () => {
   console.log("newNote: ", newNote);
 
   // --------- FETCH FROM SERVER ---------
-  const hook = () => {
+  useEffect(() => {
     console.log("effect");
-    axios.get("http://localhost:3001/notes").then((response) => {
+
+    const eventHandler = (response) => {
       console.log("promise fulfilled");
       setNotes(response.data);
-    });
-  };
-  useEffect(hook, []);
+    };
+
+    const promise = axios.get("http://localhost:3001/notes");
+    promise.then(eventHandler);
+  }, []);
   console.log("render", notes.length, "notes");
 
   // ---------SHOW IMPORTANT NOTES---------
