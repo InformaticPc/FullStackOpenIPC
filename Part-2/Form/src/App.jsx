@@ -12,13 +12,14 @@ const App = () => {
   console.log("newNote: ", newNote);
 
   // --------- FETCH FROM SERVER ---------
-  useEffect(() => {
+  const hook = () => {
     console.log("effect");
     axios.get("http://localhost:3001/notes").then((response) => {
       console.log("promise fulfilled");
       setNotes(response.data);
     });
-  }, []);
+  };
+  useEffect(hook, []);
   console.log("render", notes.length, "notes");
 
   // ---------SHOW IMPORTANT NOTES---------
@@ -65,5 +66,5 @@ const App = () => {
 };
 
 export default App;
-// Filtering Displayed Elements
-// https://fullstackopen.com/en/part2/forms
+// Effect-hooks
+// https://fullstackopen.com/en/part2/getting_data_from_server
