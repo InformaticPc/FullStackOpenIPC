@@ -5,25 +5,26 @@ import Note from "./components/Note";
 const App = () => {
   // ---------STATES---------
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState("new note...");
+  const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
   // ---------LOGS---------
-  console.log("note: ", notes);
+  console.log("notes: ", notes);
   console.log("newNote: ", newNote);
 
   // --------- FETCH FROM SERVER ---------
-  useEffect(() => {
-    console.log("effect");
-
+  const hook = () => {
     const eventHandler = (response) => {
       console.log("promise fulfilled");
       setNotes(response.data);
+      console.log("reponse:", response);
     };
 
     const promise = axios.get("http://localhost:3001/notes");
-    promise.then(eventHandler);
-  }, []);
-  console.log("render", notes.length, "notes");
+    promise.then(eventHandler, (err) =>
+      console.log("then(): promise rejected | err=>", err)
+    );
+  };
+  useEffect(hook, []);
 
   // ---------SHOW IMPORTANT NOTES---------
   // filter: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
@@ -55,13 +56,18 @@ const App = () => {
       <button onClick={() => setShowAll(!showAll)}>
         Show {showAll ? "important" : "all"} notes
       </button>
-      <ul>
+      <ol>
         {notesToShow.map((note) => (
           <Note key={note.id} note={note} />
         ))}
-      </ul>
+      </ol>
       <form onSubmit={addNote}>
-        <input type="text" value={newNote} onChange={handleNoteChange} />
+        <input
+          placeholder="new note..."
+          type="text"
+          value={newNote}
+          onChange={handleNoteChange}
+        />
         <button type="submit">Add new note</button>
       </form>
     </div>
@@ -69,5 +75,5 @@ const App = () => {
 };
 
 export default App;
-// Effect-hooks
+// The development runtime environment
 // https://fullstackopen.com/en/part2/getting_data_from_server
