@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
-import axios from "axios";
+import dataContacts from "./services/contacts";
 import "./App.css";
 
 const App = () => {
@@ -15,15 +15,7 @@ const App = () => {
 
   // --------UseEffect--------
   const hook = () => {
-    const hookHandler = (response) => {
-      console.log("Show response from server", response);
-      setPersons(response.data);
-    };
-
-    const promise = axios.get("http://localhost:3001/persons/");
-    promise.then(hookHandler, (err) =>
-      console.error("An error occured while axios getting data from url:", err)
-    );
+    dataContacts.getAll().then((contacts) => setPersons(contacts.data));
   };
   useEffect(hook, []); // see clearly 2 args...
 
@@ -59,9 +51,10 @@ const App = () => {
     });
     isAdded
       ? alert(`${newName} is already added to the phonebook`)
-      : axios
-          .post("http://localhost:3001/persons/", newPerson)
+      : dataContacts
+          .create(newPerson)
           .then((person) => setPersons(persons.concat(person.data)));
+
     setNewName("");
     setNewNumber("");
     console.log("list:", persons);
