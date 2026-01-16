@@ -18,13 +18,13 @@
     {
       "id": "4",
       "content": "This is my now note, check it out",
-      "important": false,
+      "important": true,
       "imporant": false
     },
     {
       "id": "565b",
       "content": "new notes with backend module",
-      "important": true
+      "important": false
     }
   ]
 }
