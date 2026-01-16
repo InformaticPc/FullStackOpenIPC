@@ -3,6 +3,7 @@ import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
 import axios from "axios";
+import "./App.css";
 
 const App = () => {
   // --------States--------
@@ -10,19 +11,21 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
+  console.log("newName:", newName);
 
   // --------UseEffect--------
   const hook = () => {
     const hookHandler = (response) => {
+      console.log("Show response from server", response);
       setPersons(response.data);
     };
 
-    const promise = axios.get("http://localhost:3001/persons");
+    const promise = axios.get("http://localhost:3001/persons/");
     promise.then(hookHandler, (err) =>
       console.error("An error occured while axios getting data from url:", err)
     );
   };
-  useEffect(hook, []);
+  useEffect(hook, []); // see clearly 2 args...
 
   // --------Filter--------
   /**
@@ -50,12 +53,18 @@ const App = () => {
   const handlerSubmit = (e) => {
     e.preventDefault(); // <== REMEMBER
     let isAdded = false;
+    const newPerson = { name: newName, number: newNumber };
     persons.forEach((person) => {
       if (newName.toLowerCase() === person.name.toLowerCase()) isAdded = true;
     });
     isAdded
       ? alert(`${newName} is already added to the phonebook`)
-      : setPersons(persons.concat({ name: newName, number: newNumber }));
+      : axios
+          .post("http://localhost:3001/persons/", newPerson)
+          .then((person) => setPersons(persons.concat(person.data)));
+    setNewName("");
+    setNewNumber("");
+    console.log("list:", persons);
   };
 
   return (
