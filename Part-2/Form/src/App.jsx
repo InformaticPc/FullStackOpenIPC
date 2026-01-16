@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Note from "./components/Note";
+import noteService from "./services/notes";
 import "./global.css";
 
 const App = () => {
@@ -14,18 +14,9 @@ const App = () => {
 
   // --------- FETCH FROM SERVER ---------
   const hook = () => {
-    const eventHandler = (response) => {
-      console.log("promise fulfilled");
+    noteService.getAll().then((response) => {
       setNotes(response.data);
-      console.log("reponse:", response);
-    };
-
-    const promise = axios.get("http://localhost:3001/notes");
-    console.log(promise);
-
-    promise.then(eventHandler, (err) =>
-      console.log("then(...,err): promise rejected | err=>", err)
-    );
+    });
   };
   useEffect(hook, []);
 
@@ -39,28 +30,18 @@ const App = () => {
 
     // create the new note
     const addNewNote = {
-      id: notes.length + 1,
       content: newNote, // <-- using the state
       important: Math.random() < 0.5, // <-- true/false random num btw 0 <-> 1
     };
 
-    // ---------POST NEW NOTES---------
-    const posting = axios.post("http://localhost:3001/notes", addNewNote);
-    console.log("posting:", posting);
+    // ---------POST and set NEW NOTES---------
+    noteService
+      .create(addNewNote)
+      .then((response) => setNotes(notes.concat(response.data)));
 
-    posting.then((response) => console.log("POST response:", response));
-    // ------GET BACK NOTES(no needed because is react)------
-    // but for practicing purposes
-    posting.finally((final) => {
-      console.log("final posting:", final);
-      axios.get("http://localhost:3001/notes").then((response) => {
-        console.log("GET RESPONSE AFTER POSTING:", response);
-
-        setNotes(notes.concat(response.data)); // <-- here they used 'concat' instead of 'push'. Return a new array without modifiying any previous array
-        setNewNote("");
-      });
-    });
+    setNewNote("");
   };
+
   // ---------HANDLERS---------
   const handleNoteChange = (event) => {
     console.log("event.target.value onChange= ", event.target.value);
@@ -69,14 +50,14 @@ const App = () => {
 
   // ---------ID Importance---------
   const toggleImportanceOf = (id) => {
-    const url = `http://localhost:3001/notes/${id}`;
     const note = notes.find((n) => n.id === id);
     const changedNote = { ...note, important: !note.important };
 
-    axios.put(url, changedNote).then((response) => {
-      setNotes(notes.map((note) => (note.id === id ? response.data : note)));
-    });
-    // need to post the changes...
+    noteService
+      .update(id, changedNote)
+      .then((response) =>
+        setNotes(notes.map((note) => (note.id === id ? response.data : note)))
+      );
   };
 
   return (
