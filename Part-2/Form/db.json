@@ -1,19 +1,30 @@
 {
   "notes": [
     {
-      "id": "1",
+      "id": 1,
       "content": "HTML is easy",
       "important": true
     },
     {
-      "id": "2",
+      "id": 2,
       "content": "Browser can execute only JavaScript",
       "important": false
     },
     {
-      "id": "3",
+      "id": 3,
       "content": "AXIOS Is amazing GET and POST are the most important methods of HTTP protocol",
-      "important": true
+      "important": false
+    },
+    {
+      "id": 4,
+      "content": "This is my now note, check it out",
+      "important": true,
+      "imporant": false
+    },
+    {
+      "id": 5,
+      "content": "d",
+      "important": false
     }
   ]
 }
