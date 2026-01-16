@@ -8,7 +8,7 @@
     {
       "id": "2",
       "content": "Browser can execute only JavaScript",
-      "important": false
+      "important": true
     },
     {
       "id": "3",
@@ -18,28 +18,13 @@
     {
       "id": "4",
       "content": "This is my now note, check it out",
-      "important": true,
+      "important": false,
       "imporant": false
     },
     {
-      "id": "5",
-      "content": "d",
+      "id": "565b",
+      "content": "new notes with backend module",
       "important": true
-    },
-    {
-      "id": "6",
-      "content": "aha",
-      "important": false
-    },
-    {
-      "id": "dda3",
-      "content": "what",
-      "important": false
-    },
-    {
-      "id": "1577",
-      "content": "id now?",
-      "important": false
     }
   ]
 }

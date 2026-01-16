@@ -14,11 +14,11 @@ const App = () => {
 
   // --------- FETCH FROM SERVER ---------
   const hook = () => {
-    noteService.getAll().then((response) => {
-      setNotes(response.data);
-    });
+    noteService.getAll().then((n) => setNotes(n));
   };
   useEffect(hook, []);
+
+  console.log("getAll:", noteService.getAll());
 
   // ---------SHOW IMPORTANT NOTES---------
   // filter: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
@@ -37,7 +37,7 @@ const App = () => {
     // ---------POST and set NEW NOTES---------
     noteService
       .create(addNewNote)
-      .then((response) => setNotes(notes.concat(response.data)));
+      .then((response) => setNotes(notes.concat(response)));
 
     setNewNote("");
   };
@@ -56,7 +56,7 @@ const App = () => {
     noteService
       .update(id, changedNote)
       .then((response) =>
-        setNotes(notes.map((note) => (note.id === id ? response.data : note)))
+        setNotes(notes.map((note) => (note.id === id ? response : note)))
       );
   };
 
