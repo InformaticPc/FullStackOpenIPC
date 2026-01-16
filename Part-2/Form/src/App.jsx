@@ -48,7 +48,7 @@ const App = () => {
     setNewNote(event.target.value);
   };
 
-  // ---------ID Importance---------
+  // ---------UPDATE note Importance---------
   const toggleImportanceOf = (id) => {
     const note = notes.find((n) => n.id === id);
     const changedNote = { ...note, important: !note.important };
@@ -57,7 +57,12 @@ const App = () => {
       .update(id, changedNote)
       .then((response) =>
         setNotes(notes.map((note) => (note.id === id ? response : note)))
-      );
+      )
+      .catch((error) => {
+        alert(`The note: '${note.content}' was already deleted from server\n
+          error: ${error}`);
+        setNotes(notes.filter((n) => n.id !== id));
+      });
   };
 
   return (
