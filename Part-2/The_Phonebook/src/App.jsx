@@ -4,7 +4,6 @@ import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
 import dataContacts from "./services/contacts";
 import "./App.css";
-import axios from "axios";
 
 const App = () => {
   // ========States========
@@ -12,7 +11,6 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
-  console.log("newName:", newName);
 
   // ========UseEffect========
   const hook = () => {
@@ -50,11 +48,12 @@ const App = () => {
     );
 
     if (confirmDel) {
-      axios
-        .delete(`http://localhost:3001/persons/${person.id}`)
+      dataContacts
+        .delContact(person.id)
         .finally(() =>
-          dataContacts.getAll().then((contacts) => setPersons(contacts.data))
+          setPersons(persons.filter((contact) => contact.id !== person.id))
         );
+      // return the new list of contact by filtering ☝️
     } else alert(`Contact ${person.name} NOT deleted`);
   }
 
