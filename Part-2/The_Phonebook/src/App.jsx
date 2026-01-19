@@ -4,22 +4,23 @@ import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
 import dataContacts from "./services/contacts";
 import "./App.css";
+import axios from "axios";
 
 const App = () => {
-  // --------States--------
+  // ========States========
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
   console.log("newName:", newName);
 
-  // --------UseEffect--------
+  // ========UseEffect========
   const hook = () => {
     dataContacts.getAll().then((contacts) => setPersons(contacts.data));
   };
   useEffect(hook, []); // see clearly 2 args...
 
-  // --------Filter--------
+  // ========Filter========
   /**
    * Render only the matches
    */
@@ -30,7 +31,7 @@ const App = () => {
           person.name.toLowerCase().match(search.toLowerCase())
         );
 
-  // --------handlers--------
+  // ========handlers========
   const handleName = (e) => setNewName(e.target.value);
   const handlerNumber = (e) => setNewNumber(e.target.value);
 
@@ -41,7 +42,23 @@ const App = () => {
   const handlerSearch = (e) => {
     setSearch(e.target.value);
   };
-  // button
+
+  // ========handler DEL========
+  function handlerDel(person) {
+    const confirmDel = window.confirm(
+      `Do you want to delete ${person.name} contact?`
+    );
+
+    if (confirmDel) {
+      axios
+        .delete(`http://localhost:3001/persons/${person.id}`)
+        .finally(() =>
+          dataContacts.getAll().then((contacts) => setPersons(contacts.data))
+        );
+    } else alert(`Contact ${person.name} NOT deleted`);
+  }
+
+  // ========button========
   const handlerSubmit = (e) => {
     e.preventDefault(); // <== REMEMBER
     let isAdded = false;
@@ -71,11 +88,11 @@ const App = () => {
         submit={handlerSubmit}
       />
       <h2>Numbers</h2>
-      <Persons persons={filtered} />
+      <Persons persons={filtered} handlerDel={handlerDel} />
     </>
   );
 };
 
 export default App;
-// 2.10: The Phonebook Step 5
-//https://fullstackopen.com/en/part2/forms#controlled-component
+// 2.14: The Phonebook step 9
+//https://fullstackopen.com/en/part2/altering_data_in_server
