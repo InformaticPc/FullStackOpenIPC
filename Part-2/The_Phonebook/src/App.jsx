@@ -14,7 +14,7 @@ const App = () => {
 
   // ========UseEffect========
   const hook = () => {
-    dataContacts.getAll().then((contacts) => setPersons(contacts.data));
+    dataContacts.getAll().then((contacts) => setPersons(contacts));
   };
   useEffect(hook, []); // see clearly 2 args...
 
@@ -41,7 +41,7 @@ const App = () => {
     setSearch(e.target.value);
   };
 
-  // ========handler DEL========
+  // ========handler DELETE========
   function handlerDel(person) {
     const confirmDel = window.confirm(
       `Do you want to delete ${person.name} contact?`
@@ -57,19 +57,39 @@ const App = () => {
     } else alert(`Contact ${person.name} NOT deleted`);
   }
 
-  // ========button========
+  // ========button SUBMIT========
   const handlerSubmit = (e) => {
     e.preventDefault(); // <== REMEMBER
     let isAdded = false;
     const newPerson = { name: newName, number: newNumber };
+    let toReplace;
+    let personID;
     persons.forEach((person) => {
-      if (newName.toLowerCase() === person.name.toLowerCase()) isAdded = true;
+      if (newName.toLowerCase() === person.name.toLowerCase()) {
+        personID = person.id;
+        isAdded = true;
+      }
     });
-    isAdded
-      ? alert(`${newName} is already added to the phonebook`)
-      : dataContacts
-          .create(newPerson)
-          .then((person) => setPersons(persons.concat(person.data)));
+    // ========Update contact========
+    if (isAdded) {
+      toReplace = window.confirm(
+        `${newName} is already added to the phonebook, replace the old number with a new one?`
+      );
+      if (toReplace) {
+        dataContacts.update(personID, newPerson).then((response) => {
+          setPersons(
+            persons.map((person) =>
+              person.id === personID ? response : person
+            )
+          );
+        });
+      }
+    }
+    // ========NEW contact========
+    else
+      dataContacts
+        .create(newPerson)
+        .then((person) => setPersons(persons.concat(person)));
 
     setNewName("");
     setNewNumber("");
@@ -93,5 +113,5 @@ const App = () => {
 };
 
 export default App;
-// 2.14: The Phonebook step 9
+// 2.15*: The Phonebook step 10
 //https://fullstackopen.com/en/part2/altering_data_in_server

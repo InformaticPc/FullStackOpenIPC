@@ -8,7 +8,11 @@ const PersonForm = ({ name, number, submit }) => {
         Number: <input type="text" onChange={number} />
       </div>
       <div>
-        <button onClick={submit} type="submit">
+        <button
+          style={{ backgroundColor: "#06a9d1" }}
+          onClick={submit}
+          type="submit"
+        >
           add
         </button>
       </div>
