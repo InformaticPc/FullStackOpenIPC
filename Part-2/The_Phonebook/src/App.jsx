@@ -113,5 +113,5 @@ const App = () => {
 };
 
 export default App;
-// 2.15*: The Phonebook step 10
-//https://fullstackopen.com/en/part2/altering_data_in_server
+// Adding styles to React app
+//https://fullstackopen.com/en/part2/adding_styles_to_react_app
