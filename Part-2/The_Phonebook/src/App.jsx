@@ -3,7 +3,6 @@ import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
 import dataContacts from "./services/contacts";
-import "./App.css";
 
 const App = () => {
   // ========States========
