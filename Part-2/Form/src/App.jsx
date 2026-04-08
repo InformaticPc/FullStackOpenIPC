@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import Note from "./components/Note";
 import noteService from "./services/notes";
 import Notification from "./components/Notification";
+import Footer from "./components/Footer";
 
 const App = () => {
   // ---------STATES---------
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
-  const [errorMessage, setErrorMessage] = useState("some error happened");
+  const [errorMessage, setErrorMessage] = useState(null);
   // ---------LOGS---------
   console.log("notes: ", notes);
   console.log("newNote: ", newNote);
@@ -97,6 +98,7 @@ const App = () => {
         />
         <button type="submit">Add new note</button>
       </form>
+      <Footer></Footer>
     </div>
   );
 };
@@ -105,12 +107,5 @@ export default App;
 // Changing the Importance of Notes
 // This is accomplished with the map method: <==
 // https://fullstackopen.com/en/part2/adding_styles_to_react_app
-/* ERROR TO FIX [line 53]: error message doesn't display
- * when Note is removed from server and the on web try to
- * to change the importance of the note, it should display a
- * notification message below H1 'Notes'
- * Depending whether you change to important or not it
- * behaves differently. CHECK THAT OUT [https://github.com/fullstack-hy2020/part2-notes-frontend/blob/part2-7/src/App.jsx]
- * Removes the ID:4 from server and toggle 'impotance' button
- * ✅FOUND ISSUE, attribute was written as a child <>'here'</> rather than<'here'></>
+/*
  */

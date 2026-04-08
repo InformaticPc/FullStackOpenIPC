@@ -15,7 +15,12 @@
       "content": "AXIOS Is amazing GET and POST are the most important methods of HTTP protocol",
       "important": false
     },
-
+    {
+      "id": "4",
+      "content": "This is my now note, check it out",
+      "important": true,
+      "imporant": false
+    },
     {
       "id": "565b",
       "content": "new notes with backend module",
