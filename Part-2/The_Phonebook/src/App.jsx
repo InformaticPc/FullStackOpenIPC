@@ -3,6 +3,7 @@ import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
 import dataContacts from "./services/contacts";
+import Notification from "./components/Notificartion";
 
 const App = () => {
   // ========States========
@@ -10,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
+  const [notification, setNotification] = useState(null);
 
   // ========UseEffect========
   const hook = () => {
@@ -22,7 +24,7 @@ const App = () => {
    * Render only the matches
    */
   const filtered =
-    search == ""
+    search === ""
       ? persons
       : persons.filter((person) =>
           person.name.toLowerCase().match(search.toLowerCase())
@@ -55,8 +57,7 @@ const App = () => {
       // return the new list of contact by filtering ☝️
     } else alert(`Contact ${person.name} NOT deleted`);
   }
-
-  // ========button SUBMIT========
+  // ==========button SUBMIT==========
   const handlerSubmit = (e) => {
     e.preventDefault(); // <== REMEMBER
     let isAdded = false;
@@ -67,9 +68,14 @@ const App = () => {
       if (newName.toLowerCase() === person.name.toLowerCase()) {
         personID = person.id;
         isAdded = true;
+      } else {
+        setNotification(`${newPerson.name} has been added`);
+        setTimeout(() => {
+          setNotification(null);
+        }, 5000);
       }
     });
-    // ========Update contact========
+    // ----------Update contact----------
     if (isAdded) {
       toReplace = window.confirm(
         `${newName} is already added to the phonebook, replace the old number with a new one?`
@@ -82,9 +88,10 @@ const App = () => {
             )
           );
         });
-      }
+        setNotification(`${newPerson.name} has been updated`);
+      } else alert("Contact NOT changed");
     }
-    // ========NEW contact========
+    // ----------NEW contact----------
     else
       dataContacts
         .create(newPerson)
@@ -98,6 +105,7 @@ const App = () => {
   return (
     <>
       <h1>Phonebook</h1>
+      <Notification message={notification}></Notification>
       <Filter search={handlerSearch} />
       <h2>Add a new</h2>
       <PersonForm
@@ -113,4 +121,10 @@ const App = () => {
 
 export default App;
 // Adding styles to React app
-//https://fullstackopen.com/en/part2/adding_styles_to_react_app
+//https://fullstackopen.com/en/part2/adding_styles_to_react_app#exercises-2-16-2-17
+/*
+* Issue name/number field doens clear after update/add contact but variables does:
+= Either:
+- Don't set the values to empty in line [100-101]
+- Find how to make the field values e.target.value empty in the html.
+ */
