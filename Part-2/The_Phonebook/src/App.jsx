@@ -111,6 +111,7 @@ const App = () => {
       <PersonForm
         name={handleName}
         number={handlerNumber}
+        value={}
         submit={handlerSubmit}
       />
       <h2>Numbers</h2>
@@ -123,8 +124,15 @@ export default App;
 // Adding styles to React app
 //https://fullstackopen.com/en/part2/adding_styles_to_react_app#exercises-2-16-2-17
 /*
-* Issue name/number field doens clear after update/add contact but variables does:
+* Issue name/number field doesn't clear after update/add contact but variables does:
 = Either:
 - Don't set the values to empty in line [100-101]
 - Find how to make the field values e.target.value empty in the html.
+---------------------------
+# Seems that Im missing the attrivute 'value' in PersonForm-input element
+# Also be aware that the event 'onChange' is the one that should modify the values of <input 'value={__}'>
+  This event right now are 'name'/'number' attrivutes from '<PersonForm>' and 'value' should point to each input 'name' 'number'
+  Find out how to make that 'onChange' event modifies their own 'value' for each input respectively.
+ℹ️ Each input name and number should have an attrivute 'value' and that attrivute is set by the useStates 'newName' 'newNumber'
  */
+// REMEMBER GIT BRANCH FOR THIS ISSUE
