@@ -111,7 +111,8 @@ const App = () => {
       <PersonForm
         name={handleName}
         number={handlerNumber}
-        value={}
+        valueName={newName}
+        valueNumber={newNumber}
         submit={handlerSubmit}
       />
       <h2>Numbers</h2>
@@ -134,5 +135,7 @@ export default App;
   This event right now are 'name'/'number' attrivutes from '<PersonForm>' and 'value' should point to each input 'name' 'number'
   Find out how to make that 'onChange' event modifies their own 'value' for each input respectively.
 ℹ️ Each input name and number should have an attrivute 'value' and that attrivute is set by the useStates 'newName' 'newNumber'
+---------------------------
+* ✅Issue fixed, 🔄️but not sure if right, cause I have added 2 more attrivutes to <PersonForm> Perhaps code needs a better refactor or code logic.
  */
 // REMEMBER GIT BRANCH FOR THIS ISSUE
