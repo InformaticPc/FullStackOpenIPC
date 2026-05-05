@@ -2,7 +2,7 @@
   "persons": [
     {
       "name": "sergio",
-      "number": "234+2345+45",
+      "number": "234^34598^345",
       "id": "d411"
     },
     {
@@ -19,6 +19,21 @@
       "name": "Dead Pool",
       "number": "666-666-666",
       "id": "69ed"
+    },
+    {
+      "id": "e264",
+      "name": "watakatapitus",
+      "number": ""
+    },
+    {
+      "id": "1266",
+      "name": "new test",
+      "number": "2384349_3453"
+    },
+    {
+      "id": "fdec",
+      "name": "testeing",
+      "number": "234235345"
     }
   ]
 }

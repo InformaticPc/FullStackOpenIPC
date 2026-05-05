@@ -1,17 +1,10 @@
-const PersonForm = ({ name, number, submit }) => {
+const PersonForm = ({ name, number, valueName, valueNumber, submit }) => {
   return (
-    <form>
-      <div>
-        Name: <input type="text" onChange={name} />
-      </div>
-      <div>
-        Number: <input type="text" onChange={number} />
-      </div>
-      <div>
-        <button onClick={submit} type="submit">
-          add
-        </button>
-      </div>
+    <form onSubmit={submit}>
+      Name: <input type="text" value={valueName} onChange={name} />
+      <br />
+      Number: <input type="text" value={valueNumber} onChange={number} />
+      <button type="submit">add</button>
     </form>
   );
 };

@@ -16,14 +16,18 @@
       "important": false
     },
     {
-      "id": "4",
-      "content": "This is my now note, check it out",
-      "important": true,
-      "imporant": false
-    },
-    {
       "id": "565b",
       "content": "new notes with backend module",
+      "important": false
+    },
+    {
+      "id": "da5a",
+      "content": "NEW NOTE",
+      "important": true
+    },
+    {
+      "id": "de64",
+      "content": "TESTING",
       "important": false
     }
   ]

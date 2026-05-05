@@ -1,0 +1,8 @@
+.notification {
+  border-style: dotted;
+  border-color: rgb(7, 194, 131);
+  background: rgb(187, 238, 218);
+  border-radius: 5px;
+  padding: 1vh;
+  margin-bottom: 1vh;
+}
