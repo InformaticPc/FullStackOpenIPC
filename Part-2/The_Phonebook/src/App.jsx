@@ -4,6 +4,7 @@ import PersonForm from "./components/PersonForm";
 import Filter from "./components/Filter";
 import dataContacts from "./services/contacts";
 import Notification from "./components/Notificartion";
+import ErrorNotification from "./components/Error_notification";
 
 const App = () => {
   // ========States========
@@ -12,6 +13,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [search, setSearch] = useState("");
   const [notification, setNotification] = useState(null);
+  const [error, setError] = useState(null);
 
   // ========UseEffect========
   const hook = () => {
@@ -68,11 +70,6 @@ const App = () => {
       if (newName.toLowerCase() === person.name.toLowerCase()) {
         personID = person.id;
         isAdded = true;
-      } else {
-        setNotification(`${newPerson.name} has been added`);
-        setTimeout(() => {
-          setNotification(null);
-        }, 5000);
       }
     });
     // ----------Update contact----------
@@ -81,21 +78,38 @@ const App = () => {
         `${newName} is already added to the phonebook, replace the old number with a new one?`
       );
       if (toReplace) {
-        dataContacts.update(personID, newPerson).then((response) => {
-          setPersons(
-            persons.map((person) =>
-              person.id === personID ? response : person
-            )
-          );
-        });
-        setNotification(`${newPerson.name} has been updated`);
+        dataContacts
+          .update(personID, newPerson)
+          .then((response) => {
+            setPersons(
+              persons.map((person) =>
+                person.id === personID ? response : person
+              )
+            );
+            setNotification(`${newPerson.name} has been updated`);
+            setTimeout(() => {
+              setNotification(null);
+            }, 5000);
+          })
+          .catch((error) => {
+            setError(`${newPerson.name} not found in your contacts:\n${error}`);
+            setTimeout(() => {
+              setError(null);
+            }, 7000);
+          });
       } else alert("Contact NOT changed");
     }
     // ----------NEW contact----------
-    else
+    else {
       dataContacts
         .create(newPerson)
         .then((person) => setPersons(persons.concat(person)));
+
+      setNotification(`${newPerson.name} has been added`);
+      setTimeout(() => {
+        setNotification(null);
+      }, 5000);
+    }
 
     setNewName("");
     setNewNumber("");
@@ -106,6 +120,7 @@ const App = () => {
     <>
       <h1>Phonebook</h1>
       <Notification message={notification}></Notification>
+      <ErrorNotification error={error}></ErrorNotification>
       <Filter search={handlerSearch} />
       <h2>Add a new</h2>
       <PersonForm
@@ -122,20 +137,5 @@ const App = () => {
 };
 
 export default App;
-// Adding styles to React app
+// Adding styles to React app ===>[2.17*]<===
 //https://fullstackopen.com/en/part2/adding_styles_to_react_app#exercises-2-16-2-17
-/*
-* Issue name/number field doesn't clear after update/add contact but variables does:
-= Either:
-- Don't set the values to empty in line [100-101]
-- Find how to make the field values e.target.value empty in the html.
----------------------------
-# Seems that Im missing the attrivute 'value' in PersonForm-input element
-# Also be aware that the event 'onChange' is the one that should modify the values of <input 'value={__}'>
-  This event right now are 'name'/'number' attrivutes from '<PersonForm>' and 'value' should point to each input 'name' 'number'
-  Find out how to make that 'onChange' event modifies their own 'value' for each input respectively.
-ℹ️ Each input name and number should have an attrivute 'value' and that attrivute is set by the useStates 'newName' 'newNumber'
----------------------------
-* ✅Issue fixed, 🔄️but not sure if right, cause I have added 2 more attrivutes to <PersonForm> Perhaps code needs a better refactor or code logic.
- */
-// MERGE TO MAIN BRANCH AND COTINUE THE COURSE

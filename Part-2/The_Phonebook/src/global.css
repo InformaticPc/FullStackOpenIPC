@@ -6,3 +6,11 @@
   padding: 1vh;
   margin-bottom: 1vh;
 }
+.errorNotification {
+  border-style: solid;
+  border-color: rgb(194, 7, 132);
+  background: rgb(204, 204, 204);
+  border-radius: 5px;
+  padding: 1vh;
+  margin-bottom: 1vh;
+}
