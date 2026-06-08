@@ -137,5 +137,6 @@ const App = () => {
 };
 
 export default App;
-// Adding styles to React app ===>[2.17*]<===
-//https://fullstackopen.com/en/part2/adding_styles_to_react_app#exercises-2-16-2-17
+// Adding styles to React app ===>[2.17*]<=== done ✅
+// Continue...⤵️
+//https://fullstackopen.com/en/part2/adding_styles_to_react_app#couple-of-important-remarks

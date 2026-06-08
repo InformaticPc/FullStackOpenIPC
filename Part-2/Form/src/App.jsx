@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 
 const App = () => {
   // ---------STATES---------
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(null);
   const [newNote, setNewNote] = useState("");
   const [showAll, setShowAll] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -16,10 +16,13 @@ const App = () => {
 
   // --------- FETCH FROM SERVER ---------
   const hook = () => {
-    noteService.getAll().then((n) => setNotes(n));
+    noteService.getAll().then((intialNotes) => setNotes(intialNotes));
   };
   useEffect(hook, []);
-
+  // do not render anything if notes is still null
+  if (!notes) {
+    return null;
+  }
   console.log("getAll:", noteService.getAll());
 
   // ---------SHOW IMPORTANT NOTES---------
@@ -104,8 +107,7 @@ const App = () => {
 };
 
 export default App;
-// Changing the Importance of Notes
-// This is accomplished with the map method: <==
-// https://fullstackopen.com/en/part2/adding_styles_to_react_app
+
+// https://fullstackopen.com/en/part2/adding_styles_to_react_app#couple-of-important-remarks
 /*
  */

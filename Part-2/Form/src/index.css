@@ -1,10 +1,13 @@
+body {
+  background-color: rgb(34, 34, 34);
+}
 h1 {
   color: rgb(0, 182, 121);
   font-style: italic;
 }
 
 .note {
-  color: grey;
+  color: rgb(214, 214, 214);
   padding-top: 5px;
   font-size: 15px;
 }
