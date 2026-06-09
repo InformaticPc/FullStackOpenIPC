@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import { CountryList, Country } from "./components/Country_List";
 
 function App() {
   const [filter, setFilter] = useState(null); //input text
@@ -48,10 +49,10 @@ function App() {
         <ol>
           {countryFiltered.length > 10 ? (
             <h3>To many matches, be more specific</h3>
+          ) : countryFiltered.length === 1 ? (
+            <Country country={countryFiltered}></Country>
           ) : (
-            countryFiltered.map((country) => {
-              return <li>{country.name.official}</li>;
-            })
+            <CountryList list={countryFiltered}> </CountryList>
           )}
         </ol>
       </section>
