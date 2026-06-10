@@ -63,11 +63,5 @@ function App() {
 export default App;
 
 /*
-Figured out how to show the country information when you get only one match
 
-'if' conditionals aren't allow in jsx, need to be a returning value like ternary conditional.
-
-Probably is simplier to make the condition in a separate component for the contries to display.
-
-*"countryFiltered"* is the value to be pass as prop.
 */
