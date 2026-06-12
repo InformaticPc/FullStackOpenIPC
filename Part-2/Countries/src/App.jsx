@@ -36,10 +36,20 @@ function App() {
   // -------input handler-------
   const handlerFilter = (e) => {
     const value = e.target.value;
-    console.log("input values: ", value);
+    console.log("input values/setFilter: ", value);
     setFilter(value);
   };
   console.log("filtered: ", countryFiltered);
+
+  // Show handler
+  const handlerShowButton = (e, countryName) => {
+    e.preventDefault();
+    console.log("buttong clicked", e);
+    console.log("button Country Name: ", countryName);
+    /* Is returning an array now, so try to work with that*/
+    // return <Country country={country}></Country>;
+    setFilter(countryName);
+  };
 
   return (
     <>
@@ -50,9 +60,18 @@ function App() {
           {countryFiltered.length > 10 ? (
             <h3>To many matches, be more specific</h3>
           ) : countryFiltered.length === 1 ? (
-            <Country country={countryFiltered}></Country>
+            countryFiltered.map((country) => {
+              return (
+                <Country
+                  key={country.name.official}
+                  country={country}
+                ></Country>
+              );
+            })
           ) : (
-            <CountryList list={countryFiltered}> </CountryList>
+            <CountryList list={countryFiltered} button={handlerShowButton}>
+              {" "}
+            </CountryList>
           )}
         </ol>
       </section>
