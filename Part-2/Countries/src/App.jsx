@@ -6,26 +6,23 @@ import { CountryList, Country } from "./components/Country_List";
 function App() {
   const [filter, setFilter] = useState(null); //input text
   const [countries, setCountries] = useState(null); //countries found
-  const baseURL = "https://studies.cs.helsinki.fi/restcountries/api/all";
+  // const [weather, setWeather] = useState(null); ==> //ISSUE needed for the other component file?
+  const countriesURL = "https://studies.cs.helsinki.fi/restcountries/api/all";
 
   // console.log("COUNTRIES DATA: ", countries);
 
   // -------Use effect - Fetching data-------
-  const hook = () => {
-    if (filter) console.log("running hook...");
-
-    axios.get(baseURL).then((response) => {
+  const fetchCountries = () => {
+    axios.get(countriesURL).then((response) => {
       // console.log("RESPONSE: ", response.data[102]);
       setCountries(response.data);
     });
-    console.log("FILTER: ", filter);
   };
-  useEffect(hook, [filter]);
+  useEffect(fetchCountries, []);
 
   /**Value that will print the countries matched
    * @type {string[]}
    */
-
   const countryFiltered =
     filter === null
       ? []
@@ -62,10 +59,12 @@ function App() {
           ) : countryFiltered.length === 1 ? (
             countryFiltered.map((country) => {
               return (
-                <Country
-                  key={country.name.official}
-                  country={country}
-                ></Country>
+                <>
+                  <Country
+                    key={country.name.official}
+                    country={country} //weather.data ISSUE
+                  ></Country>
+                </>
               );
             })
           ) : (
