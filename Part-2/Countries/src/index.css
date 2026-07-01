@@ -3,3 +3,8 @@ body {
   color: rgb(43, 218, 159);
   font-family: Consolas;
 }
+h2,
+h3,
+h4 {
+  margin-bottom: 1vb;
+}

@@ -27,13 +27,18 @@ function App() {
     filter === null
       ? []
       : countries.filter((countriesName) =>
-          countriesName.name.official.toLowerCase().match(filter.toLowerCase())
+          countriesName.name.official
+            .toLowerCase()
+            .includes(filter.toLowerCase())
         );
+  console.log("FILTER: ", filter);
 
   // -------input handler-------
   const handlerFilter = (e) => {
     const value = e.target.value;
     console.log("input values/setFilter: ", value);
+    if (value === "") return setFilter(null);
+
     setFilter(value);
   };
   console.log("filtered: ", countryFiltered);
@@ -55,7 +60,7 @@ function App() {
         <br></br>
         <ol>
           {countryFiltered.length > 10 ? (
-            <h3>To many matches, be more specific</h3>
+            <h3>To many matches[{countryFiltered.length}], be more specific</h3>
           ) : countryFiltered.length === 1 ? (
             countryFiltered.map((country) => {
               return (
@@ -79,7 +84,12 @@ function App() {
 }
 
 export default App;
-
-/*
-
+/*BUG:
+If you type: 'chi'
+and click on "Republic of China (Taiwan)" 
+you get an empty array...
+* Type "taiw" and you get the good array
+* Bug could be the character '(' on the filter function, 'invalid regular expression'
+* find how to accept '(' ')' for the match()function and avoit the error
+# FIXED USING .includes() function
 */
