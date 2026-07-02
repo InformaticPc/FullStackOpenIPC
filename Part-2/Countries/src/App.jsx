@@ -6,7 +6,6 @@ import { CountryList, Country } from "./components/Country_List";
 function App() {
   const [filter, setFilter] = useState(null); //input text
   const [countries, setCountries] = useState(null); //countries found
-  // const [weather, setWeather] = useState(null); ==> //ISSUE needed for the other component file?
   const countriesURL = "https://studies.cs.helsinki.fi/restcountries/api/all";
 
   // console.log("COUNTRIES DATA: ", countries);
@@ -14,7 +13,6 @@ function App() {
   // -------Use effect - Fetching data-------
   const fetchCountries = () => {
     axios.get(countriesURL).then((response) => {
-      // console.log("RESPONSE: ", response.data[102]);
       setCountries(response.data);
     });
   };
@@ -62,13 +60,10 @@ function App() {
           {countryFiltered.length > 10 ? (
             <h3>To many matches[{countryFiltered.length}], be more specific</h3>
           ) : countryFiltered.length === 1 ? (
-            countryFiltered.map((country) => {
+            countryFiltered.map((country, key) => {
               return (
                 <>
-                  <Country
-                    key={country.name.official}
-                    country={country} //weather.data ISSUE
-                  ></Country>
+                  <Country key={key} country={country}></Country>
                 </>
               );
             })
@@ -84,12 +79,5 @@ function App() {
 }
 
 export default App;
-/*BUG:
-If you type: 'chi'
-and click on "Republic of China (Taiwan)" 
-you get an empty array...
-* Type "taiw" and you get the good array
-* Bug could be the character '(' on the filter function, 'invalid regular expression'
-* find how to accept '(' ')' for the match()function and avoit the error
-# FIXED USING .includes() function
-*/
+/*
+ */
