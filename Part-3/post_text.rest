@@ -1,0 +1,5 @@
+POST http://localhost:3001/api/notes
+Content-Type:text/plain
+
+testing my own post
+# you need to change the .post {app.use(express.text());} function on js file to send plain text and can't mix 2 post functions.
