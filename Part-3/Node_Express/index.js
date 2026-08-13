@@ -67,16 +67,26 @@ app.delete("/api/notes/:id", (request, response) => {
 //
 // ---------POST---------
 app.use(express.json());
-app.post("/api/notes", (request, response) => {
+
+const generateID = (array) => {
   const maxID =
-    notes.length > 0 ? Math.max(...notes.map((n) => Number(n.id))) : 0;
+    array.length > 0 ? Math.max(...array.map((n) => Number(n.id))) : 0;
+  return String(maxID + 1); // add➕ property id and rise by 1* the bigger ID in 'notes'
+};
 
-  const note = request.body;
+app.post("/api/notes", (request, response) => {
+  const body = request.body;
 
-  console.log("WHAT IS NOTE: ", note);
-  console.log("WHAT IS NOTE: ", maxID);
+  if (!body.content) {
+    return response.status(400).json({ error: "'content' property missing" });
+  }
 
-  note.id = String(maxID + 1); // add➕ property id and rise by 1* the bigger ID in 'notes'
+  const note = {
+    content: body.content,
+    important: body.important || false, //if we miss important property, we'll set it 'false' by default
+    id: generateID(notes),
+  };
+
   notes = notes.concat(note);
 
   response.json(note);

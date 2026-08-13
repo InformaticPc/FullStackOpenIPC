@@ -2,6 +2,6 @@ POST http://localhost:3001/api/notes
 content-type: application/json
 
 {
-    "name": "IPC POSTING NOTE",
+    "content": "IPC POSTING NOTE",
     "time": "Wed, 11 Aug 2026 18:27:50 GMT"
 }
