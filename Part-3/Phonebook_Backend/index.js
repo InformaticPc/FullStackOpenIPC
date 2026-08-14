@@ -25,7 +25,7 @@ const persons = [
 ];
 
 app.get("/", (request, response) => {
-  response.end("<h1>IPC Server running</h1>");
+  response.end(`Phonebook had info for ${persons.length} people\n\n${Date()}`);
 });
 
 app.get("/api/persons", (request, response) => {
@@ -35,3 +35,5 @@ app.get("/api/persons", (request, response) => {
 const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
+
+// https://fullstackopen.com/en/part3/node_js_and_express#exercises-3-1-3-6
