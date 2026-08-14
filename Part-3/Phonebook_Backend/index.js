@@ -32,6 +32,21 @@ app.get("/api/persons", (request, response) => {
   response.json(persons);
 });
 
+app.get("/api/persons/:id", (request, response) => {
+  const id = request.params.id;
+  console.log("show ID: ", id);
+  const contact = persons.find((person) => {
+    // console.log("show Person: ", person, person.id);
+    return person.id === id;
+  });
+  // console.log("Whats Contact?: ", contact);
+  if (contact) response.json(contact);
+  else {
+    response.statusMessage = `Note with id:${id} doesn't exist`;
+    response.status(404).end();
+  }
+});
+
 const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
