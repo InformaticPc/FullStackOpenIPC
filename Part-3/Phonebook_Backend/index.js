@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-const persons = [
+let persons = [
   {
     id: "1",
     name: "Arto Hellas",
@@ -23,29 +23,34 @@ const persons = [
     number: "39-23-6423122",
   },
 ];
-
+// ---------GET ROOT---------
 app.get("/", (request, response) => {
   response.end(`Phonebook had info for ${persons.length} people\n\n${Date()}`);
 });
 
+// ---------GET CONTACTS---------
 app.get("/api/persons", (request, response) => {
   response.json(persons);
 });
 
 app.get("/api/persons/:id", (request, response) => {
   const id = request.params.id;
-  console.log("show ID: ", id);
   const contact = persons.find((person) => {
-    // console.log("show Person: ", person, person.id);
     return person.id === id;
   });
-  // console.log("Whats Contact?: ", contact);
   if (contact) response.json(contact);
   else {
     response.statusMessage = `Note with id:${id} doesn't exist`;
     response.status(404).end();
   }
 });
+// ---------DELETE CONTACT---------
+app.delete("/api/persons/:id", (request, response) => {
+  const id = request.params.id;
+  persons = persons.filter((person) => person.id != id);
+  response.status(204).end();
+});
+// --------- ---------
 
 const PORT = 3001;
 app.listen(PORT);
