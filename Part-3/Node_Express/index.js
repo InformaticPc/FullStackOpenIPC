@@ -66,7 +66,7 @@ app.delete("/api/notes/:id", (request, response) => {
 
 //
 // ---------POST---------
-app.use(express.json());
+app.use(express.json()); // <==Check what is thsi used for?
 
 const generateID = (array) => {
   const maxID =
@@ -76,7 +76,7 @@ const generateID = (array) => {
 
 app.post("/api/notes", (request, response) => {
   const body = request.body;
-
+  console.log("BODY?: ", body);
   if (!body.content) {
     return response.status(400).json({ error: "'content' property missing" });
   }
@@ -86,7 +86,7 @@ app.post("/api/notes", (request, response) => {
     important: body.important || false, //if we miss important property, we'll set it 'false' by default
     id: generateID(notes),
   };
-
+  console.log("NEW NOTE: ", note); //check..
   notes = notes.concat(note);
 
   response.json(note);
