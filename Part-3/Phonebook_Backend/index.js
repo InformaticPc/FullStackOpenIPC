@@ -57,6 +57,20 @@ app.post("/api/persons", (request, response) => {
   let newID;
   let idFound;
   const content = request.body;
+  // ------ERROR HANDLER------
+  // property 'name' OR 'number' is empty
+  if (!content.name || !content.number) {
+    return response
+      .status(400)
+      .json({ error: "'name' or 'number property missing" });
+  }
+  // property vale 'number' OR 'name' already exist
+  const numExist = persons.find((person) => {
+    return person.number == content.number || person.name == content.name;
+  });
+  if (numExist) {
+    return response.status(400).json({ error: "Number or name already exist" });
+  }
   // ℹ️ do while loop for random ID to make sure it doesn't repeat, for at least 20 contacts, then it would be an infinity loop❌
   console.log("POST CONTENT: ", content);
   do {
@@ -65,13 +79,13 @@ app.post("/api/persons", (request, response) => {
     idFound = persons.find((person) => {
       return person.id === String(newID);
     });
-    console.log("idFound: ", idFound);
+    console.log("ID already exist: ", idFound);
   } while (idFound);
 
   // contact structure
   const newContact = {
     id: String(newID),
-    name: content.name || "n/a",
+    name: content.name,
     number: content.number || "n/a",
   };
   console.log("new Contact: ", newContact);
@@ -87,4 +101,4 @@ app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
 
 // https://fullstackopen.com/en/part3/node_js_and_express#exercises-3-1-3-6
-// 3.5: Phonebook backend step 5 <==
+// 3.5: Phonebook backend step 6 <==
