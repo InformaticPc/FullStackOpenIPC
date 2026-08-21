@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const morgan = require("morgan");
 
 let persons = [
   {
@@ -23,6 +24,35 @@ let persons = [
     number: "39-23-6423122",
   },
 ];
+
+// ---------MIDDLEWARE---------
+app.use(express.json());
+
+// ---------MIDDLEWARE MORGAN---------
+// create new token ':body'
+morgan.token("body", (req) => JSON.stringify(req.body));
+// use all the tokens that 'tiny' use + the new one ':body'
+app.use(
+  morgan(":method :url :status :res[content-length] - :response-time ms :body")
+);
+// another way to study ⬇️
+/*
+app.use(
+  morgan(function (tokens, req, res) {
+    return [
+      tokens.method(req, res),
+      tokens.url(req, res),
+      tokens.status(req, res),
+      tokens.res(req, res, "content-length"),
+      "-",
+      tokens["response-time"](req, res),
+      "ms",
+      JSON.stringify(req.body), // <-- your JSON added here
+    ].join(" ");
+  })
+);
+*/
+
 // ---------GET ROOT---------
 app.get("/", (request, response) => {
   response.end(`Phonebook had info for ${persons.length} people\n\n${Date()}`);
@@ -52,7 +82,7 @@ app.delete("/api/persons/:id", (request, response) => {
   response.status(204).end();
 });
 // ---------POST NEW CONTACT---------
-app.use(express.json());
+
 app.post("/api/persons", (request, response) => {
   let newID;
   let idFound;
@@ -100,5 +130,4 @@ const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
 
-// https://fullstackopen.com/en/part3/node_js_and_express#exercises-3-1-3-6
-// 3.5: Phonebook backend step 6 <==
+// https://fullstackopen.com/en/part3/node_js_and_express#about-http-request-types

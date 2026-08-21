@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const morgan = require("morgan");
 
 const PORT = 3001;
 // ---------DATA---------
@@ -22,6 +23,19 @@ let notes = [
 ];
 console.log("WHAT IS APP;", app);
 
+// -------MIDDLEWARES-------
+const requestLogger = (request, response, next) => {
+  console.log("Method:", request.method);
+  console.log("Path:  ", request.path);
+  console.log("Body:  ", request.body);
+  console.log("---");
+  next();
+};
+
+app.use(express.json()); // <== Middleware Parse the request content (json ) to a JavaScript Object and assign it to a request object as new property body.
+
+app.use(requestLogger);
+
 // ---------GET---------
 app.get("/", (request, response) => {
   // console.log("REQUEST", request);
@@ -38,6 +52,8 @@ app.get("/", (request, response) => {
 app.get("/api/notes", (request, response) => {
   console.log("================\n==============");
   console.log("REQUEST HEADERS: ", request.headers);
+  console.log("================\n==============");
+  console.log("REQUEST BODY: ", request.body);
   // console.log("WHATS ID:", id);
 
   response.json(notes);
@@ -64,10 +80,7 @@ app.delete("/api/notes/:id", (request, response) => {
   response.status(204).end();
 });
 
-//
 // ---------POST---------
-app.use(express.json()); // <==Check what is thsi used for?
-
 const generateID = (array) => {
   const maxID =
     array.length > 0 ? Math.max(...array.map((n) => Number(n.id))) : 0;
@@ -92,8 +105,23 @@ app.post("/api/notes", (request, response) => {
   response.json(note);
 });
 
+// another Middleware
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: "unknown endpoint" });
+};
+
+app.use(unknownEndpoint);
+
 // ---------LISTEN PORT---------
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 // https://fullstackopen.com/en/part3/node_js_and_express#receiving-data
+// UNDERSTAND MORE THE MIDDLEWARE
+// ARE THEY ONLY USED IN EXPRESS?
+// WHY ARE THEY USEFUL?
+//How can I make the POST method to work without [Middleware 'express.json()']
+/*
+ * https://www.w3schools.com/nodejs/nodejs_middleware.asp
+ * https://developer.mozilla.org/en-US/docs/Glossary/Middleware
+ */
