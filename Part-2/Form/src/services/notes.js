@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3001/notes";
+const baseUrl = "http://localhost:3001/api/notes";
 
 const getAll = () => {
   const promise = axios.get(baseUrl);
@@ -18,4 +18,8 @@ const update = (id, newObject) => {
 
 export default { getAll, create, update };
 
-//https://fullstackopen.com/en/part2/adding_styles_to_react_app
+//https://fullstackopen.com/en/part3/deploying_app_to_internet
+// Part-3b issue:
+/*You don't have a 'put' method in you Express server (file) so is making a wrong request.
+Not sure if this should happen and later they will explain...
+ */

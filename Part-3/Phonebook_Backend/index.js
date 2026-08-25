@@ -130,4 +130,4 @@ const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
 
-// https://fullstackopen.com/en/part3/node_js_and_express#about-http-request-types
+// https://fullstackopen.com/en/part3/deploying_app_to_internet

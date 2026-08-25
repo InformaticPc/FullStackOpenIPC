@@ -66,7 +66,7 @@ const App = () => {
       )
       .catch((error) => {
         setErrorMessage(
-          `The note: '${note.content}' was already deleted from server\nerror: ${error}`
+          `The note: "${note.content}" was already deleted from server\nerror: ${error}`
         );
         setTimeout(() => {
           setErrorMessage(null);
@@ -109,5 +109,6 @@ const App = () => {
 export default App;
 
 // https://fullstackopen.com/en/part2/adding_styles_to_react_app#couple-of-important-remarks
-/*
- */
+/*NOT UPDATING IMPORTANCE ISSUE:
+FIXED✅ ADDING THE .put Mthod to the Express server.
+*/
