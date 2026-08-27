@@ -12,6 +12,9 @@ h1 {
   font-size: 15px;
   margin: 1vh;
 }
+.note button {
+  margin-left: 1vh;
+}
 
 .error {
   color: red;
