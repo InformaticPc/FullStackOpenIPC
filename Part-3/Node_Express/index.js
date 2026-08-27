@@ -3,7 +3,6 @@ const app = express();
 const cors = require("cors");
 // const morgan = require("morgan");
 
-const PORT = 3001;
 // ---------DATA---------
 let notes = [
   {
@@ -125,6 +124,7 @@ const unknownEndpoint = (request, response) => {
 app.use(unknownEndpoint);
 
 // ---------LISTEN PORT---------
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
