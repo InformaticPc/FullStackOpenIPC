@@ -129,13 +129,5 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-// https://fullstackopen.com/en/part3/node_js_and_express#receiving-data
+// https://fullstackopen.com/en/part3/deploying_app_to_internet#streamlining-deploying-of-the-frontend
 //How can I make the POST method to work without [Middleware 'express.json()']
-/*NOT UPDATING IMPORTANCE ISSUE: (PART-2 /src/App.jsx)
-*Using the new backend with express in Part-3, when you click on the buttom to update the 'important' property of the note it shows the error message like the note where deleted but in the backend still there and if you refresh the index page, you will see the notes again.
-
-*Look into toggleImportanceOf() (line 57) if you find any issue there or within '/services/note.js' request */
-
-/*Missing 'put' method in you Express server so is making a wrong request when try to update a note.
-Not sure if this should happen and later they will explain...
- */

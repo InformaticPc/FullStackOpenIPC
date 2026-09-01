@@ -108,7 +108,4 @@ const App = () => {
 
 export default App;
 
-// https://fullstackopen.com/en/part2/adding_styles_to_react_app#couple-of-important-remarks
-/*NOT UPDATING IMPORTANCE ISSUE:
-FIXED✅ ADDING THE .put Mthod to the Express server.
-*/
+// https://fullstackopen.com/en/part3/deploying_app_to_internet#streamlining-deploying-of-the-frontend
