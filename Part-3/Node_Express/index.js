@@ -30,7 +30,7 @@ const requestLogger = (request, response, next) => {
   console.log("---");
   next();
 };
-app.use(express.static("dist"));
+app.use(express.static("../../Part-2/Form/dist/"));
 
 app.use(express.json()); // <== Middleware Parse the request content (json ) to a JavaScript Object and assign it to a request object as new property body.
 

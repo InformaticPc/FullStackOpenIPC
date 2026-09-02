@@ -11,7 +11,7 @@
     "dev": "node --watch index.js",
     "start": "node index.js",
     "build:ui": "rm -rf dist/ && cd ../../Part-2/Form/ && npm run build && cp -r dist/ ../../Part-3/Node_Express/",
-    "deploy:full": "npm run build:ui && read -p 'Enter the commit message using:' my_message && git commit -am \"$my_message\" && git push origin main",
+    "deploy:full": "npm run build:ui && git add . && read -p 'Enter the commit message using:' my_message && git commit -m \"$my_message\" && git push origin main",
     "commandTest": "read -p 'Enter the commit message using:' my_message && git commit -am \"$my_message\""
   },
   "dependencies": {
