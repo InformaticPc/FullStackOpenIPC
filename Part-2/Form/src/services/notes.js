@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "https://expressipc.onrender.com/api/notes";
+const baseUrl = "/api/notes"; //<== made a relative url after pasting Dist to backend
 
 const getAll = () => {
   const promise = axios.get(baseUrl);
