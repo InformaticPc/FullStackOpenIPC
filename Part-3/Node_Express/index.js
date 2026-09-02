@@ -37,9 +37,6 @@ app.use(express.static("dist"));
 
 app.use(requestLogger);
 
-// ---------CORS---------
-app.use(cors());
-
 // ---------GET---------
 app.get("/", (request, response) => {
   // console.log("REQUEST", request);

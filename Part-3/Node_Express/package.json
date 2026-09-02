@@ -15,7 +15,6 @@
     "commandTest": "read -p 'Enter the commit message using:' my_message && git commit -am \"$my_message\""
   },
   "dependencies": {
-    "cors": "^2.8.6",
     "express": "^5.2.1"
   }
 }
