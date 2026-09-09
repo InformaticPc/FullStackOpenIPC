@@ -125,5 +125,5 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-// https://fullstackopen.com/en/part3/deploying_app_to_internet#streamlining-deploying-of-the-frontend
+// https://fullstackopen.com/en/part3/deploying_app_to_internet#exercises-3-9-3-11
 //How can I make the POST method to work without [Middleware 'express.json()']

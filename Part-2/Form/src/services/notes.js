@@ -18,7 +18,7 @@ const update = (id, newObject) => {
 
 export default { getAll, create, update };
 
-//https://fullstackopen.com/en/part3/deploying_app_to_internet
+//https://fullstackopen.com/en/part3/deploying_app_to_internet#exercises-3-9-3-11
 // Part-3b issue:
 /*You don't have a 'put' method in you Express server (file) so is making a wrong request.
 Not sure if this should happen and later they will explain...

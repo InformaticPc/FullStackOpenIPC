@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const morgan = require("morgan");
 
 let persons = [
   {
@@ -25,33 +24,11 @@ let persons = [
   },
 ];
 
+// ---------use dist dir---------
+app.use(express.static("dist/"));
+
 // ---------MIDDLEWARE---------
 app.use(express.json());
-
-// ---------MIDDLEWARE MORGAN---------
-// create new token ':body'
-morgan.token("body", (req) => JSON.stringify(req.body));
-// use all the tokens that 'tiny' use + the new one ':body'
-app.use(
-  morgan(":method :url :status :res[content-length] - :response-time ms :body")
-);
-// another way to study ⬇️
-/*
-app.use(
-  morgan(function (tokens, req, res) {
-    return [
-      tokens.method(req, res),
-      tokens.url(req, res),
-      tokens.status(req, res),
-      tokens.res(req, res, "content-length"),
-      "-",
-      tokens["response-time"](req, res),
-      "ms",
-      JSON.stringify(req.body), // <-- your JSON added here
-    ].join(" ");
-  })
-);
-*/
 
 // ---------GET ROOT---------
 app.get("/", (request, response) => {
@@ -94,7 +71,7 @@ app.post("/api/persons", (request, response) => {
       .status(400)
       .json({ error: "'name' or 'number property missing" });
   }
-  // property vale 'number' OR 'name' already exist
+  // property value 'number' OR 'name' already exist
   const numExist = persons.find((person) => {
     return person.number == content.number || person.name == content.name;
   });
@@ -130,4 +107,5 @@ const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
 
-// https://fullstackopen.com/en/part3/deploying_app_to_internet
+// https://fullstackopen.com/en/part3/deploying_app_to_internet#exercises-3-9-3-11
+// STEP 10 AND 11 do it together, since you did the 'build' dist/ of you app already. You coudln't make the app to work from backend using Morgan middleware. ⁉️Check this in the future 'HOW MIDDLEWARE ARE USED TO CONNECT BACKEND WITH FRONTEND'⁉️
