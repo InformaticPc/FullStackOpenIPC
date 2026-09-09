@@ -11,7 +11,7 @@
     "dev": "node --watch index.js",
     "start": "node index.js",
     "build:ui": "rm -rf dist/ && cd ../../Part-2/The_Phonebook/ && npm run build && cp -r dist/ ../../Part-3/Phonebook_Backend/",
-    "deploy:full": "npm run build:ui && git add . && read -p 'Enter the commit message using\"\":' my_message && git commit -m \"$my_message\" && git push origin"
+    "deploy:full": "npm run build:ui && git add . && read -p 'Enter the commit message:' my_message && git commit -m \"$my_message\" && git push origin"
   },
   "dependencies": {
     "express": "^5.2.1",
