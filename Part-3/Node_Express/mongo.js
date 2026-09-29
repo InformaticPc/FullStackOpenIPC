@@ -8,7 +8,7 @@ if (process.argv.length < 3) {
 
 const password = process.argv[2];
 
-const url = `mongodb://informaticpc07_db_user:${password}@ac-ij3xoxb-shard-00-00.ljy8u8p.mongodb.net:27017,ac-ij3xoxb-shard-00-01.ljy8u8p.mongodb.net:27017,ac-ij3xoxb-shard-00-02.ljy8u8p.mongodb.net:27017/?ssl=true&replicaSet=atlas-zwn3nr-shard-0&authSource=admin&appName=Cluster0`;
+const url = `mongodb://informaticpc07_db_user:${password}@ac-ij3xoxb-shard-00-00.ljy8u8p.mongodb.net:27017,ac-ij3xoxb-shard-00-01.ljy8u8p.mongodb.net:27017,ac-ij3xoxb-shard-00-02.ljy8u8p.mongodb.net:27017/noteApp?ssl=true&replicaSet=atlas-zwn3nr-shard-0&authSource=admin&appName=Cluster0`;
 mongoose.set("strictQuery", false);
 
 mongoose.connect(url, { family: 4 });
