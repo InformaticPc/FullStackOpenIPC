@@ -55,7 +55,6 @@ app.get("/api/notes", (request, response) => {
   console.log("================\n==============");
   console.log("REQUEST BODY: ", request.body);
   // console.log("WHATS ID:", id);
-
   response.json(notes);
 
   // console.log("RESPONSE", response);
@@ -125,5 +124,4 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-// https://fullstackopen.com/en/part3/deploying_app_to_internet#exercises-3-9-3-11
-//How can I make the POST method to work without [Middleware 'express.json()']
+// https://fullstackopen.com/en/part3/saving_data_to_mongo_db#mongo-db
