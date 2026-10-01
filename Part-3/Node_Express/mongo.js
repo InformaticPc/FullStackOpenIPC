@@ -11,21 +11,31 @@ const password = process.argv[2];
 const url = `mongodb://informaticpc07_db_user:${password}@ac-ij3xoxb-shard-00-00.ljy8u8p.mongodb.net:27017,ac-ij3xoxb-shard-00-01.ljy8u8p.mongodb.net:27017,ac-ij3xoxb-shard-00-02.ljy8u8p.mongodb.net:27017/noteApp?ssl=true&replicaSet=atlas-zwn3nr-shard-0&authSource=admin&appName=Cluster0`;
 mongoose.set("strictQuery", false);
 
-mongoose.connect(url, { family: 4 });
+mongoose.connect(url, { family: 4 }); // connecting to DB
 
 const noteSchema = new mongoose.Schema({
   content: String,
   important: Boolean,
 });
 
-const Note = mongoose.model("Note", noteSchema);
+const Note = mongoose.model("Note", noteSchema); //<-- name of collection 'Note' but MongoDB will change the convention name to notes (Note -> notes), lowercase and plural. ℹ️
 
 const note = new Note({
   content: "HTML is easy",
   important: true,
 });
+const note2 = new Note({
+  content: "Sencond Note",
+  important: true,
+});
 
 note.save().then((result) => {
   console.log("note saved!");
+  console.log("RESULT: ", result); //<-- to debug
+});
+
+note2.save().then((result) => {
+  console.log("note saved!");
+  console.log("RESULT: ", result);
   mongoose.connection.close();
 });
