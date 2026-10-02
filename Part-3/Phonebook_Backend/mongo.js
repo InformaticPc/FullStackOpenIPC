@@ -65,9 +65,9 @@ newContact.save().then((result) => {
 });
 
 // ----- Delete empty Contacts from DB -----
-// Contact.deleteMany({ name: undefined }).then((contact) => {
+// Contact.deleteOne({ name: undefined }).then((contact) => {
 //   console.log("empty contact deleted-->", contact);
-// });
+// }); //<-- it workd if you don't close() the connection in code... dunno which one is the workflow, seems that delete method is the one that takes longer to execute and I close the connection before deletion is over, so where should I put the close()method to be execute at the end of everything?***
 // ----- Fetch previous Contacts from DB -----
 
 Contact.find({})
@@ -82,4 +82,4 @@ Contact.find({})
       console.log("SHOW ERR: ", err);
     }
     mongoose.connection.close();
-  }); // If I don't do the finally method, I get error that connection is finished before finishing to fetch all the contacts. Even placing the **mongoose.connection.close()** inside **.then(){...here}** method. :/
+  }); // <-- If I don't do the finally method, I get error that connection is finished before finishing to fetch all the contacts. Even placing the **mongoose.connection.close()** inside **.then(){...here}** method. :/
