@@ -49,7 +49,7 @@ const contactSchema = new mongoose.Schema({
   number: String,
 });
 
-const Contact = mongoose.model("Contact", contactSchema); // MongoDB will change 'Contact' --> 'Contacs'
+const Contact = mongoose.model("Contact", contactSchema); // MongoDB will change 'Contact' --> 'contacts'
 
 // ----- Create New Contact from CLI -----
 
@@ -62,7 +62,24 @@ const newContact = new Contact({
 newContact.save().then((result) => {
   console.log("new contact saved!");
   console.log(`Added ${result.name} number: ${result.number} to phonebook`);
-  mongoose.connection.close();
 });
 
-// ----- Fetch previous Contacts from ... -----
+// ----- Delete empty Contacts from DB -----
+// Contact.deleteMany({ name: undefined }).then((contact) => {
+//   console.log("empty contact deleted-->", contact);
+// });
+// ----- Fetch previous Contacts from DB -----
+
+Contact.find({})
+  .then((persons) => {
+    console.log("PHONEBOOK:⬇️");
+    persons.forEach((contact) => {
+      console.log(contact);
+    });
+  })
+  .finally((res, err) => {
+    if (err) {
+      console.log("SHOW ERR: ", err);
+    }
+    mongoose.connection.close();
+  }); // If I don't do the finally method, I get error that connection is finished before finishing to fetch all the contacts. Even placing the **mongoose.connection.close()** inside **.then(){...here}** method. :/
