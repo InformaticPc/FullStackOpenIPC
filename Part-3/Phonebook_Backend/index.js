@@ -24,6 +24,7 @@ let persons = [
   },
 ];
 
+module.exports = persons;
 // ---------use dist dir---------
 app.use(express.static("dist/"));
 
@@ -107,5 +108,4 @@ const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
 
-// https://fullstackopen.com/en/part3/deploying_app_to_internet#exercises-3-9-3-11
-// STEP 10 AND 11 do it together, since you did the 'build' dist/ of you app already. You coudln't make the app to work from backend using Morgan middleware. ⁉️Check this in the future 'HOW MIDDLEWARE ARE USED TO CONNECT BACKEND WITH FRONTEND'⁉️
+// https://fullstackopen.com/en/part3/saving_data_to_mongo_db#debugging-node-applications
