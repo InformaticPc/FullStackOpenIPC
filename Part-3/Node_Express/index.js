@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
 
 // ---------DATA---------
 let notes = [
@@ -26,34 +25,7 @@ app.use(express.static("dist/"));
 app.use(express.json()); // <== Middleware Parse the request content (json ) to a JavaScript Object and assign it to a request object as new property body.
 
 // ---------MONDODB---------
-
-if (process.argv.length < 3) {
-  console.log("give password as argument");
-  process.exit(1);
-}
-
-const password = process.argv[2];
-
-const url = `mongodb://informaticpc07_db_user:${password}@ac-ij3xoxb-shard-00-00.ljy8u8p.mongodb.net:27017,ac-ij3xoxb-shard-00-01.ljy8u8p.mongodb.net:27017,ac-ij3xoxb-shard-00-02.ljy8u8p.mongodb.net:27017/noteApp?ssl=true&replicaSet=atlas-zwn3nr-shard-0&authSource=admin&appName=Cluster0`;
-mongoose.set("strictQuery", false);
-
-mongoose.connect(url, { family: 4 }); // connecting to DB
-
-const noteSchema = new mongoose.Schema({
-  content: String,
-  important: Boolean,
-});
-
-// ---------Modify Mongo Schema---------
-noteSchema.set("toJSON", {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString(); // _id is an Object
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  },
-}); // remove the properties that you don't want to see in you DB
-
-const Note = mongoose.model("Note", noteSchema);
+const Note = require("./models/notes");
 
 // ---------ROOT PAGE---------
 app.get("/", (request, response) => {
