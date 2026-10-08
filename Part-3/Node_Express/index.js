@@ -1,5 +1,8 @@
+require("dotenv").config(); //<-- being the first line, env will be imported before the rest of modules are called, so they will have access to en 'ENV' variables too ⚠️
 const express = require("express");
 const app = express();
+// ---------MONDODB---------
+const Note = require("./models/notes");
 
 // ---------DATA---------
 let notes = [
@@ -23,9 +26,6 @@ let notes = [
 app.use(express.static("dist/"));
 
 app.use(express.json()); // <== Middleware Parse the request content (json ) to a JavaScript Object and assign it to a request object as new property body.
-
-// ---------MONDODB---------
-const Note = require("./models/notes");
 
 // ---------ROOT PAGE---------
 app.get("/", (request, response) => {
@@ -87,15 +87,15 @@ app.post("/api/notes", (request, response) => {
     return response.status(400).json({ error: "'content' property missing" });
   }
 
-  const note = {
+  const note = new Note({
     content: body.content,
     important: body.important || false, //if we miss important property, we'll set it 'false' by default
     id: generateID(notes),
-  };
+  });
   console.log("NEW NOTE: ", note); //check..
-  notes = notes.concat(note);
-
-  response.json(note);
+  note.save().then((savedNote) => {
+    response.json(savedNote);
+  });
 });
 
 // another Middleware
