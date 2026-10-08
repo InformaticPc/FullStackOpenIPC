@@ -46,16 +46,9 @@ app.get("/api/notes", (request, response) => {
 });
 
 app.get("/api/notes/:id", (request, response) => {
-  const id = request.params.id;
-  console.log("================\n==============");
-  // console.log("WHATS ID:", id);
-  const note = notes.find((note) => note.id === id);
-  if (note) {
+  Note.findById(request.params.id).then((note) => {
     response.json(note);
-  } else {
-    response.statusMessage = "Note doesn't exist";
-    response.status(404).end();
-  }
+  });
 });
 
 // ---------DELETE---------
@@ -74,11 +67,11 @@ app.put("/api/notes/:id", (request, response) => {
 });
 
 // ---------POST---------
-const generateID = (array) => {
-  const maxID =
-    array.length > 0 ? Math.max(...array.map((n) => Number(n.id))) : 0;
-  return String(maxID + 1); // add➕ property id and rise by 1* the bigger ID in 'notes'
-};
+// const generateID = (array) => {
+//   const maxID =
+//     array.length > 0 ? Math.max(...array.map((n) => Number(n.id))) : 0;
+//   return String(maxID + 1); // add➕ property id and rise by 1* the bigger ID in 'notes'
+// };
 
 app.post("/api/notes", (request, response) => {
   const body = request.body;
@@ -90,7 +83,6 @@ app.post("/api/notes", (request, response) => {
   const note = new Note({
     content: body.content,
     important: body.important || false, //if we miss important property, we'll set it 'false' by default
-    id: generateID(notes),
   });
   console.log("NEW NOTE: ", note); //check..
   note.save().then((savedNote) => {
