@@ -14,6 +14,7 @@
     "deploy:full": "npm run build:ui && git add . && read -p 'Enter the commit message:' my_message && git commit -m \"$my_message\" && git push origin"
   },
   "dependencies": {
+    "dotenv": "^18.0.7",
     "express": "^5.2.1",
     "mongo": "^0.1.0",
     "mongoose": "^9.10.3",

@@ -1,6 +1,8 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
-
+const Contact = require("./models/Contacts");
+/*
 let persons = [
   {
     id: "1",
@@ -23,8 +25,7 @@ let persons = [
     number: "39-23-6423122",
   },
 ];
-
-module.exports = persons;
+*/
 // ---------use dist dir---------
 app.use(express.static("dist/"));
 
@@ -38,20 +39,23 @@ app.get("/", (request, response) => {
 
 // ---------GET CONTACTS---------
 app.get("/api/persons", (request, response) => {
-  response.json(persons);
+  Contact.find({}).then((contacts) => {
+    console.log("Contacts: ", contacts);
+    response.json(contacts);
+  });
 });
 
 app.get("/api/persons/:id", (request, response) => {
-  const id = request.params.id;
-  const contact = persons.find((person) => {
-    return person.id === id;
-  });
-  if (contact) response.json(contact);
-  else {
-    response.statusMessage = `Note with id:${id} doesn't exist`;
-    response.status(404).end();
-  }
+  Note.findById(request.params.id)
+    .then((contact) => {
+      response.json(contact);
+    })
+    .catch((reason) => {
+      response.statusMessage = reason;
+      response.status(404).end();
+    });
 });
+/*
 // ---------DELETE CONTACT---------
 app.delete("/api/persons/:id", (request, response) => {
   const id = request.params.id;
@@ -59,11 +63,9 @@ app.delete("/api/persons/:id", (request, response) => {
   response.statusMessage = "Note removed";
   response.status(204).end();
 });
+*/
 // ---------POST NEW CONTACT---------
-
 app.post("/api/persons", (request, response) => {
-  let newID;
-  let idFound;
   const content = request.body;
   // ------ERROR HANDLER------
   // property 'name' OR 'number' is empty
@@ -72,40 +74,23 @@ app.post("/api/persons", (request, response) => {
       .status(400)
       .json({ error: "'name' or 'number property missing" });
   }
-  // property value 'number' OR 'name' already exist
-  const numExist = persons.find((person) => {
-    return person.number == content.number || person.name == content.name;
-  });
-  if (numExist) {
-    return response.status(400).json({ error: "Number or name already exist" });
-  }
-  // ℹ️ do while loop for random ID to make sure it doesn't repeat, for at least 20 contacts, then it would be an infinity loop❌
-  console.log("POST CONTENT: ", content);
-  do {
-    newID = parseInt(Math.random() * 20 + 1); //only int numbers and avoiding '0'
-    console.log("ID: ", newID);
-    idFound = persons.find((person) => {
-      return person.id === String(newID);
-    });
-    console.log("ID already exist: ", idFound);
-  } while (idFound);
+  console.log("CONTECT.NAME:", content.name);
+  console.log("CONTECT.NUMBER:", content.number);
 
   // contact structure
-  const newContact = {
-    id: String(newID),
+  const newContact = new Contact({
     name: content.name,
     number: content.number || "n/a",
-  };
-  console.log("new Contact: ", newContact);
-  persons = persons.concat(newContact);
-  response.json(newContact);
+  });
+  newContact.save().then((savedContact) => {
+    console.log("Contact saved", savedContact);
+    response.json(savedContact);
+  });
   response.statusMessage = "New contact added"; //it doesn't have any effect
   response.status(201).end(); // this also change
 });
 
 // ---------PORT---------
-const PORT = 3001;
+const PORT = process.env.PORT;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
-
-// https://fullstackopen.com/en/part3/saving_data_to_mongo_db#debugging-node-applications

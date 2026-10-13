@@ -1,3 +1,4 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 const persons = require("./index.js");
 // https://fullstackopen.com/en/part3/saving_data_to_mongo_db#exercises-3-13-3-14
@@ -16,12 +17,12 @@ console.log("ARGV: ", process.argv);
 // }
 
 // ----- argument values -----
-const password = process.argv[2]; // the first argument in cli after "node mongo.js ..here.."
-const nameContact = process.argv[3];
-const numberContact = process.argv[4];
+// the arguments in cli  "node mongo.js here..."
+const nameContact = process.argv[2];
+const numberContact = process.argv[3];
 
 // ----- URL String -----
-const url_string = `mongodb://informaticpc07_db_user:${password}@ac-dkgb2no-shard-00-00.mpqrvw6.mongodb.net:27017,ac-dkgb2no-shard-00-01.mpqrvw6.mongodb.net:27017,ac-dkgb2no-shard-00-02.mpqrvw6.mongodb.net:27017/contacts?ssl=true&replicaSet=atlas-mrs4mx-shard-0&authSource=admin&appName=Cluster0`;
+const url_string = process.env.MONGODB_URI;
 
 // ----- Connect to DB -----
 mongoose.set("strictQuery", false);
@@ -60,9 +61,6 @@ if (!nameContact || !numberContact) {
 Contact.find({})
   .then((persons) => {
     console.log("PHONEBOOK:⬇️");
-    // persons.forEach((contact) => {
-    //   console.log(contact);
-    // });
     console.log(persons);
   })
   .finally((res, err) => {
