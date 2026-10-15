@@ -16,8 +16,8 @@ mongoose
   });
 
 const contactSchema = new mongoose.Schema({
-  content: String,
-  important: String,
+  name: String,
+  number: String,
 });
 
 // ---------Modify Mongo Schema---------

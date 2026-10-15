@@ -67,6 +67,7 @@ app.delete("/api/persons/:id", (request, response) => {
 // ---------POST NEW CONTACT---------
 app.post("/api/persons", (request, response) => {
   const content = request.body;
+  console.log("POST CALLING");
   // ------ERROR HANDLER------
   // property 'name' OR 'number' is empty
   if (!content.name || !content.number) {

@@ -1,6 +1,5 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const persons = require("./index.js");
 // https://fullstackopen.com/en/part3/saving_data_to_mongo_db#exercises-3-13-3-14
 /* 
 Change the fetching of all phonebook entries so that the data is fetched from the database.
@@ -20,7 +19,9 @@ console.log("ARGV: ", process.argv);
 // the arguments in cli  "node mongo.js here..."
 const nameContact = process.argv[2];
 const numberContact = process.argv[3];
-
+console.log("ARGUMENTS 2:", process.argv[2]);
+console.log("ARGUMENTS 3:", process.argv[3]);
+console.log("ARGUMENTS 3 type:", typeof process.argv[3]);
 // ----- URL String -----
 const url_string = process.env.MONGODB_URI;
 
