@@ -1,5 +1,7 @@
+require("./node_modules/dotenv").config();
 const express = require("express");
 const app = express();
+const mongoose = require("mongoose");
 
 let persons = [
   {
@@ -30,6 +32,20 @@ app.use(express.static("dist/"));
 
 // ---------MIDDLEWARE---------
 app.use(express.json());
+// ---------CONNECTING DB---------
+// URL-String
+const url_string = process.env.MONGODB_URI;
+// set connection
+mongoose.set("strictQuery", false);
+mongoose.connect(url_string, { family: 4 });
+
+// ---------Mongoose Schema---------
+const schema = new mongoose.Schema({
+  name: String,
+  number: String,
+});
+// ---------Mongoose Model---------
+const Contact = new mongoose.model("Contact", schema);
 
 // ---------GET ROOT---------
 app.get("/", (request, response) => {
@@ -38,7 +54,9 @@ app.get("/", (request, response) => {
 
 // ---------GET CONTACTS---------
 app.get("/api/persons", (request, response) => {
-  response.json(persons);
+  Contact.find({}).then((contacts) => {
+    response.json(contacts);
+  });
 });
 
 app.get("/api/persons/:id", (request, response) => {
