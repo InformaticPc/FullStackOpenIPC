@@ -22,15 +22,21 @@ const App = () => {
   useEffect(hook, []); // see clearly 2 args...
 
   // ========Filter========
+  // ISSUE 23/10/26 Connecting to DataBase
+  /*Cannot read properties of undefined (reading 'toLowerCase')*/
   /**
    * Render only the matches
    */
   const filtered =
     search === ""
       ? persons
-      : persons.filter((person) =>
-          person.name.toLowerCase().match(search.toLowerCase())
-        );
+      : persons.filter((person) => {
+          console.log("ISSUE person:", person);
+          console.log("ISSUE person.name:", person.name);
+          console.log("ISSUE person.name type", typeof person.name);
+
+          return person.name.toLowerCase().match(search.toLowerCase());
+        });
 
   // ========handlers========
   const handleName = (e) => setNewName(e.target.value);
