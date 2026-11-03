@@ -25,7 +25,7 @@ let persons = [
     number: "39-23-6423122",
   },
 ];
-*/
+
 // ---------use dist dir---------
 app.use(express.static("dist/"));
 
@@ -96,12 +96,12 @@ app.post("/api/persons", (request, response) => {
     name: content.name,
     number: content.number || "n/a",
   });
+  response.json(newContact);
   newContact.save().then((savedContact) => {
     console.log("Contact saved", savedContact);
-    response.json(savedContact);
   });
-  response.statusMessage = "New contact added"; //it doesn't have any effect
-  response.status(201).end(); // this also change
+  response.statusMessage = "New contact added"; //it does have effect in POST
+  response.status(201).end();
 });
 
 // ---------PORT---------

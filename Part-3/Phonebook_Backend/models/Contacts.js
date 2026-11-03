@@ -22,7 +22,7 @@ const contactSchema = new mongoose.Schema({
 
 // ---------Modify Mongo Schema---------
 // remove the properties that you don't want to see in you DB
-/*
+
 noteSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
@@ -30,5 +30,5 @@ noteSchema.set("toJSON", {
     delete returnedObject.__v;
   },
 });
-*/
+
 module.exports = mongoose.model("Contact", contactSchema);
